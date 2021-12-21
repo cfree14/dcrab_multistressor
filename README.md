@@ -1,4 +1,4 @@
-# Multistressor management strategies in the OR/WA Dungeness crab fishery
+# Multi-stressor management strategies in the OR/WA Dungeness crab fishery
 
 This is the GitHub repository for the MSE-subteam working on a proposal to understand the impact of multiple climate stressors on the OR/WA Dungeness crab fishery and to evaluate the performance of management strategies that may be robust to these impacts.
 
@@ -20,3 +20,6 @@ The rest of the project team includes:
 * Richard Feely, NOAA
 * Samantha Siedlecki, U. Conn
 * Vera Trainer, NOAA
+
+Proposal RFP:
+https://coastalscience.noaa.gov/news/noaa-announces-fy22-multi-stressor-federal-funding-opportunity/
