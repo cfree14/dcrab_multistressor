@@ -106,23 +106,28 @@ dcrab <- dcrab_orig %>%
   # Add year
   mutate(year1=substr(season, 1, 4) %>% as.numeric()) %>%
   # Arrange
-  select(state, season, year1, month, month_num, date, landings_mt, landings_prop, everything())
+  select(state, season, year1, month, month_num, date, landings_mt, landings_prop, everything()) %>%
+  # ORder state
+  mutate(state=factor(state, levels=c("California", "Oregon", "Washington") %>% rev()))
 
 # Plot data
 ################################################################################
 
 # Theme
-base_theme <- theme(axis.text=element_text(size=7),
-                    axis.title=element_blank(),
-                    legend.text=element_text(size=8),
-                    legend.title=element_text(size=9),
+base_theme <- theme(axis.text=element_text(size=6),
+                    axis.title=element_text(size=7),
+                    legend.text=element_text(size=5),
+                    legend.title=element_text(size=6),
+                    strip.text = element_text(size=7),
                     plot.title=element_blank(),
+                    plot.tag = element_text(size=8),
                     # Gridlines
                     panel.grid.major = element_blank(),
                     panel.grid.minor = element_blank(),
                     panel.background = element_blank(),
                     axis.line = element_line(colour = "black"),
-                    axis.text.y = element_text(angle = 90, hjust = 0.5),
+                    # Legend
+                    legend.key.size=unit(0.3, "cm"),
                     legend.key=element_blank(),
                     legend.background = element_rect(fill=alpha('blue', 0)))
 
@@ -149,37 +154,40 @@ g1 <- ggplot(zones) +
   # Plot management zone points
   geom_text(data=zone_pts, mapping=aes(x=long_dd, y=lat_dd, label=zone_id), size=2, hjust=0) +
   # Labels
-  labs(x="", y="") +
+  labs(x="", y="", tag="A") +
   # Legend
-  scale_size_continuous(name="Average annual\nrevenue (US millions)", range = c(0.2,3.5)) +
+  scale_size_continuous(name="Seasonal\nrevenue\n(US millions)", range = c(0.2,3.5)) +
   # Crop
-  coord_sf(xlim = c(-127, -116.6), ylim = c(41.8, 49)) +
+  coord_sf(xlim = c(-127, -122), ylim = c(41.8, 49)) +
   # Theme
   theme_bw() + base_theme +
-  theme(legend.position = c(0.8, 0.25))
+  theme(axis.title=element_blank(),
+        axis.text.y = element_text(angle = 90, hjust = 0.5),
+        legend.position = c(0.83, 0.12))
 g1
 
 # Plot
-g2 <- ggplot(dcrab %>% filter(year1>2000), aes(x=month_num, y=landings_prop, color=year1, group=year1)) +
+g2 <- ggplot(dcrab %>% filter(year1>=2000), aes(x=month_num, y=landings_prop, color=year1, group=year1)) +
   facet_wrap(~state, scales="free_y", ncol=1) +
-  geom_line() +
+  geom_line(lwd=0.3) +
   # Labels
-  labs(x="Season month", y="Proportion of\nmaximum landings") +
+  labs(x="Season month", y="Proportion of\nmaximum landings", tag="B") +
   # X-axis
   scale_x_continuous(breaks=1:12) +
   # Legend
-  scale_color_gradientn(name="Season", colors=RColorBrewer::brewer.pal(9, "YlOrRd")) +
+  scale_color_gradientn(name="", colors=RColorBrewer::brewer.pal(9, "YlOrRd")) +
   guides(color = guide_colorbar(ticks.colour = "black", frame.colour = "black")) +
   # Theme
-  theme_bw()
+  theme_bw() + base_theme +
+  theme(legend.position = c(0.7, 0.52),
+        legend.key.size=unit(0.2, "cm"))
 g2
 
 # Merge
-g <- gridExtra::grid.arrange(g1, g2)
-
+g <- gridExtra::grid.arrange(g1, g2, nrow=1, widths=c(0.55, 0.45))
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "Fig1_dcrab_mgmt_zones.png"),
+ggsave(g, filename=file.path(plotdir, "Fig1_dcrab_mgmt_zones_new.png"),
        width=4, height=4, units="in", dpi=600)
 
 
