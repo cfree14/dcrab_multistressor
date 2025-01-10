@@ -91,6 +91,19 @@ table(data$year)
 # Export
 saveRDS(data, file=file.path(outdir, "dcrab_trawl_survey_data_2023_12_09_cleaned.Rds"))
 
+
+# Lat/long key
+################################################################################
+
+# Key
+date_xy_key <- data %>% 
+  select(date, lat_dd, long_dd) %>% 
+  unique()
+
+# Export
+write.csv(date_xy_key, file=file.path(outdir, "trawl_survey_date_xy_key.csv"), row.names=F)
+
+
 # Plot data
 ################################################################################
 
