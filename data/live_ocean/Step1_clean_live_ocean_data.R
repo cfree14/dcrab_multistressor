@@ -13,9 +13,18 @@ library(tidyverse)
 # Directies
 datadir <- "data/live_ocean/raw"
 outdir <- "data/live_ocean/processed"
+trawldir <- "data/trawl_survey/processed"
 
 # Read data
 data_orig <- read.csv(file.path(datadir, "trawl_survey_date_xy_key_with_LiveOcean_model_data_0_lag.csv"), as.is=T)
+
+# Read tow key
+tow_key <- read.csv(file=file.path(trawldir, "trawl_survey_date_xy_key.csv"), as.is=T) %>% 
+  mutate(date=lubridate::ymd(date),
+         trawl_id=as.character(trawl_id),
+         lat_dd_chr=round(lat_dd, 5),
+         long_dd_chr=round(long_dd, 5)) %>% 
+  select(-c(lat_dd, long_dd))
 
 
 # Format data
@@ -34,10 +43,21 @@ data <- data_orig %>%
          long_dd_lo=lon_lo) %>% 
   # Format date
   mutate(date=lubridate::mdy(date),
-         date_lag0=lubridate::mdy(date_lag0))
+         date_lag0=lubridate::mdy(date_lag0)) %>% 
+  # Add year 
+  mutate(year=lubridate::year(date)) %>% 
+  filter(year!=2023) %>% 
+  # Add trawl id
+  mutate(lat_dd_chr=round(lat_dd, 5),
+         long_dd_chr=round(long_dd, 5)) %>% 
+  left_join(tow_key) %>% 
+  select(-c(lat_dd_chr, long_dd_chr)) %>% 
+  # Arrange
+  select(year, trawl_id, everything())
 
 # Inspect
 str(data)
+freeR::complete(data)
  
 
 # Export data
