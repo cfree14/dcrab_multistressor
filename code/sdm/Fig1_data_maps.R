@@ -92,7 +92,10 @@ receipts <- receipts_orig %>%
             catch_lbs=sum(landings_lbs)) %>% 
   ungroup() %>% 
   mutate(catch_lbs_yr=catch_lbs/nyr) %>% 
-  filter(nvessels>=3)
+  filter(nvessels>=3) %>% 
+  # Convert
+  mutate(catch_kg_yr=measurements::conv_unit(catch_lbs_yr, "lbs", "kg"),
+         catch_mt_yr=catch_kg_yr/1000)
 
 # Spatialize
 receipts_sf <- blocks %>% 
@@ -176,7 +179,7 @@ g2 <- ggplot(data=logs_stats, aes(x=long_dd_bin, y=lat_dd_bin, fill=n)) +
 g2
 
 # Plot data
-g3 <- ggplot(data=receipts_sf, aes(fill=catch_lbs_yr)) +
+g3 <- ggplot(data=receipts_sf, aes(fill=catch_mt_yr)) +
   # Plot data
   geom_sf(linewidth=0.1, color="grey30") +
   # Plot management lines
@@ -187,9 +190,10 @@ g3 <- ggplot(data=receipts_sf, aes(fill=catch_lbs_yr)) +
   # Labs
   labs(x="", y="", tag="C", subtitle="California landing receipt data") +
   # Legend
-  scale_fill_gradientn(name="Catch (lbs/yr)", 
+  scale_fill_gradientn(name="Catch (mt/yr)", 
                        colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev(), 
-                       trans="log10", breaks=c(1, 10, 100, 1000, 10000)) +
+                       trans="log10", breaks=c(0.01, 0.1, 1, 10, 100, 1000, 10000),
+                       labels=c("0.01", "0.1", "1", "10", "100", "1000", "10000")) +
   guides(fill = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.2)) +
   # Crop
   coord_sf(xlim = c(-126, -116), ylim = c(34.5, 47.9)) +
