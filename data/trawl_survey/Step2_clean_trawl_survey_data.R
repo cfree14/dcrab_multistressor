@@ -85,8 +85,33 @@ range(data$depth_m)
 # Years
 table(data$year)
 
+
+# Add UTM coordinates
+################################################################################
+
+# Convert to sf object with WGS84 (EPSG:4326)
+data_sf <- sf::st_as_sf(data, coords = c("long_dd", "lat_dd"), crs = 4326)
+
+# Transform to UTM Zone 10N (EPSG:32610)
+data_sf_utm <- sf::st_transform(data_sf, crs = 32610)
+
+# Extract UTM coordinates
+utm10_easting <- sf::st_coordinates(data_sf_utm)[, 1]
+utm10_northing <- sf::st_coordinates(data_sf_utm)[, 2]
+
+# Record
+data1 <- data %>% 
+  # Add UTM10N coordinates
+  mutate(lat_utm10n=utm10_northing,
+         long_utm10n=utm10_easting) %>% 
+  # Arrange
+  select(project:long_dd, lat_utm10n, long_utm10n, everything())
+
+# Inspect
+freeR::complete(data1)
+
 # Export
-saveRDS(data, file=file.path(outdir, "dcrab_trawl_survey_data_2023_12_09_cleaned.Rds"))
+saveRDS(data1, file=file.path(outdir, "dcrab_trawl_survey_data_2023_12_09_cleaned.Rds"))
 
 
 # Lat/long key
@@ -122,58 +147,7 @@ g <- ggplot(xy_key, aes(x=long_dd, y=lat_dd, color=state)) +
   theme_bw()
 g
 
-# Plot data
-################################################################################
 
-# Theme
-base_theme <- theme(axis.text=element_blank(),
-                    axis.title=element_blank(),
-                    legend.text=element_text(size=7),
-                    legend.title=element_text(size=8),
-                    plot.title=element_blank(),
-                    # axis.text.y = element_text(angle = 90, hjust = 0.5),
-                    # Gridlines
-                    panel.grid.major = element_blank(),
-                    panel.grid.minor = element_blank(),
-                    panel.background = element_blank(),
-                    axis.line = element_line(colour = "black"),
-                    # Legend
-                    legend.key.size=unit(0.3, "cm"),
-                    legend.key=element_blank(),
-                    legend.background = element_rect(fill=alpha('blue', 0)))
-
-# Get land
-usa <- rnaturalearth::ne_states(country="United States of America", returnclass = "sf")
-foreign <- rnaturalearth::ne_countries(country=c("Canada", "Mexico"), returnclass = "sf")
-
-# Plot
-g <- ggplot(data %>% filter(cpue_kg_ha>0), aes(x=long_dd, y=lat_dd, color=cpue_kg_ha)) +
-  # Facet
-  facet_wrap(~year, ncol=7) +
-  # Plot land
-  geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
-  geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
-  # Plot surveys
-  geom_point() +
-  # Labels
-  labs(x="", y="") +
-  # Plot legend
-  scale_color_gradientn(name="CPUE (kg/ha)",
-                        trans="log10", 
-                        breaks=c(0.001, 0.01, 0.1, 1, 10, 100, 1000),
-                        labels=c("0.001", "0.01", "0.1", "1", "10", "100", "1000"),
-                        colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev()) +
-  guides(color = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.1)) +
-  # Crop
-  coord_sf(xlim = c(-126, -116.5), ylim = c(32.5, 48.5)) +
-  # Theme
-  theme_bw() + base_theme +
-  theme(legend.position = c(0.95, 0.15))
-g
-
-# Export
-ggsave(g, filename=file.path(plotdir, "FigX_dcrab_trawl_survey_data.png"), 
-       width=6.5, height=6.5, units="in", dpi=600)
 
 
 

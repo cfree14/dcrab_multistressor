@@ -7,3 +7,6 @@
 # Confidential
 admin
 data/confidential
+
+# Large files
+output
