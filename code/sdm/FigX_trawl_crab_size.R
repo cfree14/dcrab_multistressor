@@ -110,7 +110,7 @@ g1 <- ggplot(data, aes(x=year, y=crab_kg, group=year)) +
   # Limits
   lims(y=c(0, 2)) +
   # Labels
-  labs(x="Year", y="Average weight (kg)") +
+  labs(x="Year", y="Average weight (kg)", tag="A") +
   # Theme
   theme_bw() + my_theme
 g1
@@ -121,7 +121,7 @@ g2 <- ggplot(data %>% filter(crab_kg<2), aes(x="All years", y=crab_kg)) +
   # Limits
   lims(y=c(0, 2)) +
   # Labels
-  labs(x="", y="Average weight (kg)") +
+  labs(x="", y="Average weight (kg)", tag="B") +
   # Theme
   theme_bw() + my_theme
 g2
@@ -132,7 +132,7 @@ g3 <- ggplot(data %>% filter(crab_kg<2), aes(x="All years", y=crab_mm)) +
   # Limits
   lims(y=c(0, NA)) +
   # Labels
-  labs(x="", y="Average width (mm)") +
+  labs(x="", y="Average width (mm)", tag="C") +
   # Theme
   theme_bw() + my_theme
 g3
@@ -143,7 +143,7 @@ g4 <- ggplot(data_sex %>% filter(crab_kg<2), aes(x=sex, y=age_yr, fill=sex)) +
   # Limits
   lims(y=c(0, NA)) +
   # Labels
-  labs(x="", y="Average age (yr)") +
+  labs(x="", y="Average age (yr)", tag="D") +
   # Theme
   theme_bw() + my_theme +
   theme(legend.position = "none")

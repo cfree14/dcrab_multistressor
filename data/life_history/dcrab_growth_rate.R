@@ -45,6 +45,7 @@ plotdir <- "data/life_history/figures"
 my_theme <- theme(axis.text=element_text(size=6),
                   axis.title=element_text(size=8),
                   plot.title=element_text(size=9),
+                  plot.tag=element_text(size=9),
                   legend.text=element_text(size=6),
                   legend.title=element_blank(),
                   panel.grid.major = element_blank(), 
@@ -81,7 +82,7 @@ mi_data <- tibble(cw_mm=cw, Male=mi_m, Female=mi_f) %>%
 # Plot merged data
 g1 <- ggplot(mi_data, aes(x=cw_mm, y=mi_mm, color=sex)) +
   geom_line() +
-  labs(x="Carapace width (mm)", y="Molt increment (mm)", title="Molt increment") +
+  labs(x="Carapace width (mm)", y="Molt increment (mm)", title="Molt increment", tag="A") +
   scale_color_discrete(name="Sex") +
   theme_bw() + my_theme + theme(legend.position=c(0.8,0.6),
                                 legend.background = element_rect(fill=alpha('blue', 0)))
@@ -106,7 +107,7 @@ ip_data <- tibble(cw_mm=cw, ip_days=ip_15c)
 # Plot merged data
 g2 <- ggplot(ip_data, aes(x=cw_mm, y=ip_days)) +
   geom_line() +
-  labs(x="Carapace width (mm)", y="Intermolt period (days)", title="Intermolt period") +
+  labs(x="Carapace width (mm)", y="Intermolt period (days)", title="Intermolt period", tag="B") +
   theme_bw() + my_theme
 g2
 
@@ -125,7 +126,7 @@ lw_data <- tibble(cw_mm=cw, weight_g=wt_g)
 # Plot merged data
 g3 <- ggplot(lw_data, aes(x=cw_mm, y=wt_g)) +
   geom_line() +
-  labs(x="Carapace width (mm)", y="Weight (g)", title="Length-weight relationship") +
+  labs(x="Carapace width (mm)", y="Weight (g)", title="Length-weight relationship", tag="C") +
   theme_bw() + my_theme
 g3
 
@@ -193,7 +194,7 @@ g4 <- ggplot(vonb_df, aes(x=age_yr, y=cw_mm, color=sex)) +
   geom_line() +
   geom_point(data=vonb_stats, mapping=aes(x=age_yr_int-0.5, y=cw_mm, fill=sex), 
              shape=21, color="black", show.legend=FALSE) +
-  labs(x="Age (yr)", y="Carapace width (mm)",title="Length-at-age") +
+  labs(x="Age (yr)", y="Carapace width (mm)",title="Width-at-age", tag="D") +
   scale_color_discrete(name="Sex") +
   scale_x_continuous(breaks=0:10) +
   geom_hline(yintercept=159, linetype="dotted", lwd=0.3) +
@@ -207,7 +208,7 @@ g5 <- ggplot(vonb_df, aes(x=age_yr, y=weight_g, color=sex)) +
   geom_line() +
   geom_point(data=vonb_stats, mapping=aes(x=age_yr_int-0.5, y=weight_g, fill=sex), 
              shape=21, color="black", show.legend=FALSE) +
-  labs(x="Age (yr)", y="Body weight (g)", title="Weight-at-age") +
+  labs(x="Age (yr)", y="Weight (g)", title="Weight-at-age", tag="E") +
   scale_color_discrete(name="Sex") +
   scale_x_continuous(breaks=0:10) +
   theme_bw() + my_theme + theme(legend.position=c(0.8,0.2),

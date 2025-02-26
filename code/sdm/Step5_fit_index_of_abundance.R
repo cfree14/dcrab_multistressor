@@ -168,6 +168,8 @@ m <- sdmTMB(
   mesh = mesh, 
   family = tweedie(link = "log"))
 
+sanity(m)
+
 # Record and inspect residuals
 data$resids <- residuals(m, type="mle-mvn")
 hist(data$resids)
