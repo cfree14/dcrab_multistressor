@@ -31,9 +31,27 @@ foreign_utm <- foreign %>% sf::st_transform(crs=32610)
 ################################################################################
 
 data <- m$data
-mesh <- make_mesh(data, c("long_utm10km", "lat_utm10km"), cutoff = 20) # 20 km quick, 10 km slow
+my_mesh <- make_mesh(data, c("long_utm10km", "lat_utm10km"), cutoff = 20) # 20 km quick, 10 km slow
 plot(mesh)
 
+g <- inlabru::gg(my_mesh$mesh)
+g
+
+mesh <- fm_mesh_1d(seq(0, 10, by = 0.5))
+
+# Plot it
+
+ggplot() +
+  gg(mesh)
+
+gorillas <- inlabru::gorillas_sf
+
+# Invoke ggplot and add geomes for the Gorilla nests and the survey
+# boundary
+
+ggplot() +
+  inlabru::gg(gorillas$boundary) +
+  inlabru::gg(gorillas$nests)
 
 # Plot mesh
 ################################################################################
@@ -56,6 +74,7 @@ my_theme <-  theme(axis.text=element_text(size=8),
                    legend.title=element_text(size=9),
                    strip.text=element_text(size=8),
                    plot.title=element_text(size=9),
+                   plot.tag=element_text(size=9),
                    # Gridlines
                    panel.grid.major = element_blank(), 
                    panel.grid.minor = element_blank(),
@@ -65,26 +84,64 @@ my_theme <-  theme(axis.text=element_text(size=8),
                    legend.key = element_rect(fill = NA, color=NA),
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
+# Residuals histogram
+g1 <- ggplot(data, aes(x=resids)) +
+  geom_histogram(fill="grey50") +
+  # Ref line
+  geom_vline(xintercept=0) +
+  # Labels
+  labs(x="Residuals", y="Frequency", tag="A") +
+  # Theme
+  theme_bw() + my_theme
+g1
+
+# QQ plot
+qq <- qqnorm(data$resids)
+qq_df <- tibble(x=qq$x,
+                y=qq$y)
+g2 <- ggplot(qq_df, aes(x=x, y=y)) +
+  geom_point(pch=1, color="grey50") +
+  # Reference line
+  geom_abline(slope=1) +
+  # Labels
+  labs(x="Theoretical quantiles", y="Sample quantiles", tag="B") +
+  # Theme
+  theme_bw() + my_theme
+g2
+
 # Spatial residuals
-ggplot(data, aes(long_dd, lat_dd, col = resids)) + 
+g3 <- ggplot(data, aes(long_dd, lat_dd, col = resids)) + 
   # Facet
   facet_wrap(~year) + 
   # Plot land
   geom_sf(data=foreign, fill="grey90", color="white", lwd=0.2, inherit.aes = F) +
   geom_sf(data=usa, fill="grey90", color="white", lwd=0.2, inherit.aes = F) +
   # Data
-  geom_point() + 
+  geom_point(size=0.6) + 
   # Legend
   scale_colour_gradient2(name="Residuals") +
   guides(color = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.2)) +
   # Crop
   coord_sf(xlim = c(-126, -116), ylim = c(34.5, 47.9)) +
   # Labels
-  labs(x="", y="") +
+  labs(x="", y="", tag="C") +
   # Theme
   theme_bw() + my_theme +
-  theme(axis.text=element_blank(),
+  theme(strip.text=element_text(size=7),
+        legend.key.size=unit(0.5, "cm"),
+        axis.ticks=element_blank(),
+        axis.text=element_blank(),
         axis.title=element_blank())
+g3
+
+# Merge
+layout_matrix <- matrix(data=c(1, 3,
+                               2, 3), ncol=2, byrow=T)
+g <- gridExtra::grid.arrange(g1, g2, g3, layout_matrix=layout_matrix, widths=c(0.4, 0.6))
+
+# Export
+ggsave(g, filename=file.path(plotdir, "FigX_index_of_abundance_diagnostics.png"),
+       width=6.5, height=4.5, units="in", dpi=600)
 
 
 # Plot fits
@@ -106,7 +163,7 @@ g <- ggplot(data=fits, aes(x= long_utm10m, y= lat_utm10m, fill=exp(est))) +
   # Labels
   labs(title="Fixed+random effects") +
   # Legend
-  scale_fill_gradientn(name="Biomass", 
+  scale_fill_gradientn(name="Biomass density (kg/km2)", 
                        trans = "log10", 
                        colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev()) +
   guides(fill = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.2)) +
