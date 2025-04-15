@@ -19,6 +19,8 @@ plotdir <- "figures/sdm"
 logs_orig <- readRDS(file=file.path(logdir, "OR_WA_logbook_data.Rds"))
 trawl_orig <- readRDS(file=file.path(trawldir, "dcrab_trawl_survey_data_2023_12_09_cleaned.Rds"))
 receipts_orig <- readRDS(file=file.path(receiptdir, "1980_2022_dcrab_receipts_traps.Rds"))
+temps_orig <- readRDS("data/glorys/processed/GLORYS_1993_2021_annual_bt_stats.Rds")
+
 
 # Get blocks
 blocks <- wcfish::blocks %>% sf::st_as_sf()
@@ -53,7 +55,29 @@ trawl <- trawl_orig %>%
          long_dd=get_midpoint(long_dd_bin)) %>% 
   ungroup()
 
-  
+# Trawl dates
+dates_trawl <- trawl_orig %>% 
+  mutate(state=cut(lat_dd, breaks=c(-Inf, 42, 45, Inf), labels=c("CA", "OR", "WA"))) %>% 
+  group_by(state) %>% 
+  summarize(date_min=min(date),
+            date_max=max(date))
+
+
+# Temperature
+################################################################################
+
+# Temp data
+temps <- temps_orig %>% 
+  group_by(long_dd, lat_dd) %>% 
+  summarize(temp_c=mean(temp_c_max)) %>% 
+  ungroup()
+
+# Temp dates
+dates_temps <- tibble(state=factor(c("CA", "OR", "WA"), levels=c("CA", "OR", "WA")),
+                      date_min=ymd("1993-01-01"),
+                      date_max=ymd("2021-06-30"))
+
+
 
 # Logbook data
 ################################################################################
@@ -79,6 +103,16 @@ logs_stats <- logs_orig %>%
   ungroup() %>% 
   # Filter for rule of three
   filter(nvessels>=3)
+
+dates_logs <- logs_orig %>% 
+  group_by(state) %>% 
+  summarize(date_min=min(date, na.rm=T),
+            date_max=max(date, na.rm=T)) %>% 
+  ungroup() %>% 
+  mutate(state=recode(state,
+                      "Oregon"="OR",
+                      "Washington"="WA"),
+         state=factor(state, levels=c("CA", "OR", "WA")))
 
 
 # Receipt data
@@ -106,6 +140,14 @@ receipts_sf <- blocks %>%
   # Remove large blocks
   filter(block_type=="Inshore")
 
+dates_tix <- receipts_orig %>% 
+  mutate(state="CA") %>% 
+  group_by(state) %>% 
+  summarize(date_min=min(date, na.rm=T),
+            date_max=max(date, na.rm=T)) %>% 
+  ungroup() %>% 
+  mutate(state=factor(state, levels=c("CA", "OR", "WA")))
+
 # Plot data
 ################################################################################
 
@@ -118,9 +160,8 @@ base_theme <- theme(axis.text=element_blank(),
                     axis.title=element_blank(),
                     legend.text=element_text(size=6),
                     legend.title=element_text(size=7),
-                    plot.tag=element_text(size=8),
-                    plot.title=element_blank(),
-                    plot.subtitle = element_text(size=5, face="italic"),
+                    plot.tag=element_text(size=8, face="bold"),
+                    plot.title=element_text(size=7),
                     # Gridlines
                     panel.grid.major = element_blank(),
                     panel.grid.minor = element_blank(),
@@ -130,6 +171,21 @@ base_theme <- theme(axis.text=element_blank(),
                     legend.key.size=unit(0.3, "cm"),
                     legend.key=element_blank(),
                     legend.background = element_rect(fill=alpha('blue', 0)))
+
+# Inset theme
+inset_theme <- theme(axis.text=element_text(size=6),
+                     axis.title=element_blank(),
+                      plot.title=element_blank(),
+                      # Gridlines
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.background = element_blank(),
+                      axis.line = element_line(colour = "black"),
+                      # Legend
+                      legend.key.size=unit(0.3, "cm"),
+                      legend.key=element_blank(),
+                      legend.background = element_rect(fill=alpha('blue', 0)))
+
 
 # Plot data
 g1 <- ggplot(data=trawl %>% filter(cpue_kg_km2>0), aes(x=long_dd, y=lat_dd, fill=cpue_kg_km2)) +
@@ -142,9 +198,9 @@ g1 <- ggplot(data=trawl %>% filter(cpue_kg_km2>0), aes(x=long_dd, y=lat_dd, fill
   geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   # Labs
-  labs(x="", y="", tag="A", subtitle="NOAA trawl survey data") +
+  labs(x="", y="", tag="A", title="NOAA trawl survey") +
   # Legend
-  scale_fill_gradientn(name="CPUE (kg/km2)", 
+  scale_fill_gradientn(name="\nCPUE (kg/km2)", 
                        colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev(), 
                        trans="log10", breaks=c(1, 10, 100, 1000, 10000)) +
   guides(fill = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.2)) +
@@ -152,8 +208,17 @@ g1 <- ggplot(data=trawl %>% filter(cpue_kg_km2>0), aes(x=long_dd, y=lat_dd, fill
   coord_sf(xlim = c(-126, -116), ylim = c(34.5, 47.9)) +
   # Theme
   theme_bw() + base_theme +
-  theme(legend.position = c(0.7, 0.8))
+  theme(legend.position = c(0.65, 0.78))
 g1
+
+g1a <- ggplot(dates_trawl, aes(y=state, x=date_min, xend=date_max)) +
+  geom_segment(linewidth=1, color="grey40") +
+  # Scales
+  scale_y_discrete(drop=F) +
+  scale_x_date(limits = c(ymd("1980-01-01"), ymd("2024-01-01"))) +
+  # Theme
+  theme_bw() + inset_theme
+g1a
 
 # Plot data
 g2 <- ggplot(data=logs_stats, aes(x=long_dd_bin, y=lat_dd_bin, fill=n)) +
@@ -165,9 +230,9 @@ g2 <- ggplot(data=logs_stats, aes(x=long_dd_bin, y=lat_dd_bin, fill=n)) +
   geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   # Labs
-  labs(x="", y="", tag="B", subtitle="Oregon/Washington logbook data") +
+  labs(x="", y="", tag="B", title="OR/WA logbooks") +
   # Legend
-  scale_fill_gradientn(name="# of logbooks", 
+  scale_fill_gradientn(name="\n# of logbooks", 
                       colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev(), 
                       trans="log10", breaks=c(1, 10, 100, 1000, 10000)) +
   guides(fill = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.2)) +
@@ -175,8 +240,17 @@ g2 <- ggplot(data=logs_stats, aes(x=long_dd_bin, y=lat_dd_bin, fill=n)) +
   coord_sf(xlim = c(-126, -116), ylim = c(34.5, 47.9)) +
   # Theme
   theme_bw() + base_theme +
-  theme(legend.position = c(0.7, 0.8))
+  theme(legend.position = c(0.65, 0.78))
 g2
+
+g2a <- ggplot(dates_logs, aes(y=state, x=date_min, xend=date_max)) +
+  geom_segment(linewidth=1, color="grey40") +
+  # Scales
+  scale_y_discrete(drop=F) +
+  scale_x_date(limits = c(ymd("1980-01-01"), ymd("2024-01-01"))) +
+  # Theme
+  theme_bw() + inset_theme
+g2a
 
 # Plot data
 g3 <- ggplot(data=receipts_sf, aes(fill=catch_mt_yr)) +
@@ -188,9 +262,9 @@ g3 <- ggplot(data=receipts_sf, aes(fill=catch_mt_yr)) +
   geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   # Labs
-  labs(x="", y="", tag="C", subtitle="California landing receipt data") +
+  labs(x="", y="", tag="C", title="CA/OR/WA landing receipts") +
   # Legend
-  scale_fill_gradientn(name="Catch (mt/yr)", 
+  scale_fill_gradientn(name="\nCatch (mt/yr)", 
                        colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev(), 
                        trans="log10", breaks=c(0.01, 0.1, 1, 10, 100, 1000, 10000),
                        labels=c("0.01", "0.1", "1", "10", "100", "1000", "10000")) +
@@ -199,14 +273,59 @@ g3 <- ggplot(data=receipts_sf, aes(fill=catch_mt_yr)) +
   coord_sf(xlim = c(-126, -116), ylim = c(34.5, 47.9)) +
   # Theme
   theme_bw() + base_theme +
-  theme(legend.position = c(0.7, 0.8))
+  theme(legend.position = c(0.65, 0.78))
 g3
 
+g3a <- ggplot(dates_tix, aes(y=state, x=date_min, xend=date_max)) +
+  geom_segment(linewidth=1, color="grey40") +
+  # Scales
+  scale_y_discrete(drop=F) +
+  scale_x_date(limits = c(ymd("1980-01-01"), ymd("2024-01-01"))) +
+  # Theme
+  theme_bw() + inset_theme
+g3a
+
+# Bottom temperature
+g4 <- ggplot(data=temps, aes(x=long_dd, y=lat_dd, fill=temp_c)) +
+  # Plot data
+  geom_tile() +
+  # Plot management lines
+  geom_hline(yintercept=c(38+46.125/60, 42, 46.25), linetype="dashed", color="grey20", linewidth=0.2) +
+  # Plot land
+  geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
+  geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
+  # Labs
+  labs(x="", y="", tag="D", title="GLORYS bottom temperature") +
+  # Legend
+  scale_fill_gradientn(name="Bottom temp.\n(°C, annual max)",
+                       colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev()) +
+  guides(fill = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.2)) +
+  # Crop
+  coord_sf(xlim = c(-126, -116), ylim = c(34.5, 47.9)) +
+  # Theme
+  theme_bw() + base_theme +
+  theme(legend.position = c(0.65, 0.78))
+g4
+
+g4a <- ggplot(dates_temps, aes(y=state, x=date_min, xend=date_max)) +
+  geom_segment(linewidth=1, color="grey40") +
+  # Scales
+  scale_y_discrete(drop=F) +
+  scale_x_date(limits = c(ymd("1980-01-01"), ymd("2024-01-01"))) +
+  # Theme
+  theme_bw() + inset_theme
+g4a
+
 # Merge
-g <- gridExtra::grid.arrange(g1, g2, g3, ncol=4)
+layout_matrix <- matrix(data=c(1, 2, 3, 4,
+                               5, 6, 7, 8), ncol=4, byrow=T)
+g <- gridExtra::grid.arrange(g1, g2, g3, g4,
+                             g1a, g2a, g3a, g4a,
+                             layout_matrix=layout_matrix,
+                             heights=c(0.83, 0.17))
 
 # Export
 ggsave(g, filename=file.path(plotdir, "Fig1_data_maps.png"),
-       width=6.5, height=3, units="in", dpi=600)
+       width=6.5, height=3.3, units="in", dpi=600)
 
 

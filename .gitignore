@@ -6,7 +6,9 @@
 
 # Confidential
 admin
+references
 data/confidential
 
 # Large files
 output
+data/glorys/raw

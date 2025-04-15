@@ -25,8 +25,8 @@ plotdir <- "data/trawl_survey/figures"
 
 
 # Export
-saveRDS(data, file=file.path(outdir, "dcrab_trawl_survey_data_2023_12_09_cleaned.Rds"))
-
+data <- readRDS(data, file=file.path(outdir, "dcrab_trawl_survey_data_2023_12_09_cleaned.Rds"))
+range(data$depth_m)
 
 
 # Plot data

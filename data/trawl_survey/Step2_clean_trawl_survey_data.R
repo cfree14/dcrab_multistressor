@@ -23,9 +23,93 @@ plotdir <- "data/trawl_survey/figures"
 
 # Read data 
 data_orig <- readRDS(file=file.path(datadir, "dcrab_trawl_survey_data_2023_12_09.Rds"))
+hauls_orig <- readRDS(file=file.path(datadir, "dcrab_trawl_survey_hauls_2024_03_31.Rds"))
 
 
-# Format data
+# Format hauls
+################################################################################
+
+# Fortmat data
+hauls <- hauls_orig %>% 
+  # Clean names
+  janitor::clean_names("snake") %>% 
+  rename(datetime=datetime_utc_iso,
+         date=date_formatted,
+         time1=sampling_start_hhmmss,
+         time2=sampling_end_hhmmss,
+         # Lat/long
+         lat_dd=latitude_dd,
+         long_dd=longitude_dd,
+         lat_dd1_gear=gear_start_latitude_dd,
+         long_dd1_gear=gear_start_longitude_dd,
+         lat_dd2_gear=gear_end_latitude_dd,
+         long_dd2_gear=gear_end_longitude_dd,
+         lat_dd1_vessel=vessel_start_latitude_dd,
+         long_dd1_vessel=vessel_start_longitude_dd,
+         lat_dd2_vessel=vessel_end_latitude_dd,
+         long_dd2_vessel=vessel_end_longitude_dd,
+         # Environment
+         salinity_psu=salinity_at_gear_psu_der ,
+         temp_c=temperature_at_gear_c_der, 
+         sst_c=temperature_at_surface_c_der,
+         do_ml_l=o2_at_gear_ml_per_l_der,
+         turbidity_ntu=turbidity_ntu_der,
+         fluorescence_mg_m3=fluorescence_at_surface_mg_per_m3_der,
+         # Trawl properties
+         swept_ha=area_swept_ha_der,
+         depth_m=depth_hi_prec_m, 
+         performance_code_old=operation_dim_legacy_performance_code,
+         # Net properties
+         net_width_m=net_width_m_der, 
+         net_height_m=net_height_m_der,
+         door_width_m=door_width_m_der,
+         # Weights
+         inverts_kg=invertebrate_weight_kg,
+         fish_kg=vertebrate_weight_kg, 
+         organics_kg=nonspecific_organics_weight_kg 
+         ) %>% 
+  # Format date
+  mutate(date=lubridate::ymd(substr(datetime, 1, 10))) %>% 
+  # Arrange
+  select(project,
+         trawl_id, 
+         year, date, datetime, time1, time2,
+         vessel, pass, leg, station_invalid,
+         lat_dd, long_dd, 
+         lat_dd1_vessel, long_dd1_vessel, 
+         lat_dd2_vessel, long_dd2_vessel, 
+         lat_dd1_gear, long_dd1_gear, 
+         lat_dd2_gear, long_dd2_gear, 
+         net_width_m, net_height_m, door_width_m, 
+         performance, performance_code_old, 
+         swept_ha, depth_m,
+         sst_c, temp_c, do_ml_l, salinity_psu, turbidity_ntu, fluorescence_mg_m3,
+         fish_kg, inverts_kg, organics_kg,
+         everything()) %>% 
+  # Remove useless (empty or redundant)
+  select(-c(performance_code_old, datetime, turbidity_ntu, fluorescence_mg_m3))
+  
+
+# Inspect
+str(hauls)
+freeR::complete(hauls)
+freeR::complete(hauls) / nrow(hauls) * 100
+
+# Inspect
+table(hauls$project)
+table(hauls$vessel)
+table(hauls$pass)
+table(hauls$leg)
+table(hauls$performance)
+table(hauls$performance_code_old)
+table(hauls$station_invalid)
+
+# Temp vs. dissolved oxygen
+ggplot(hauls, aes(x=temp_c, y=do_ml_l)) +
+  geom_point()
+
+
+# Format catch data
 ################################################################################
 
 # Format data
@@ -54,6 +138,8 @@ data <- data_orig %>%
   select(-c(partition, partition_sample_types, legacy_performance_code, time, datetime, date2)) %>% 
   # Mark state
   mutate(state=cut(lat_dd, breaks=c(0, 42, 46.25, 50), labels=c("California", "Oregon", "Washington"))) %>% 
+  # Add enviornmental
+  left_join(hauls %>% select(trawl_id, temp_c, temp_c, do_ml_l, salinity_psu)) %>% 
   # Arrange
   select(project, comm_name, sci_name, 
          year, date, 
