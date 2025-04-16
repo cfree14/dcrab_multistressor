@@ -109,7 +109,7 @@ df3 <- build_data_xy("Spot prawn", gears_prawn)
 data_xy <- bind_rows(df1, df2, df3) 
 
 # Spatialize
-blocks_sf <- wcfish::blocks
+blocks_sf <- wcfish::blocks %>% sf::st_as_sf()
 x <- "Dungeness crab"
 data_sf <- purrr::map_df(unique(data_xy$comm_name), function(x) {
   
@@ -122,6 +122,9 @@ data_sf <- purrr::map_df(unique(data_xy$comm_name), function(x) {
   
 })
 
+
+# Build ref lines
+ref_prawn <- tibble(lat_dd=34.577211)
 
 # Plot data
 ################################################################################
@@ -203,10 +206,14 @@ foreign <- rnaturalearth::ne_countries(country=c("Canada", "Mexico"), returnclas
 
 # Function to plot maps
 # species <- "Dungeness crab"
-plot_map <- function(species, colors){
+plot_map <- function(species, colors){ #ref_lines
   
   g <- ggplot(data_sf %>% filter(comm_name==species), mapping=aes(fill=landings_lbs)) +
     geom_sf() +
+    # Ref lines
+    # geom_hline(data=ref_lines, mapping=aes(yintercept=lat_dd), linetype="dashed") +
+    # plot state lines
+    geom_hline(yintercept = c(42, 46.25), linetype="solid", linewidth=0.3) +
     # Plot land
     geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3) +
     geom_sf(data=usa, fill="grey90", color="white", lwd=0.3) +
@@ -230,8 +237,10 @@ plot_map <- function(species, colors){
 # Plot maps
 g4 <- plot_map("Dungeness crab", colors="Oranges"); g4
 g5 <- plot_map("Sablefish", colors="Purples"); g5
-g6 <- plot_map("Spot prawn", colors="Greens"); g6
+g6 <- plot_map("Spot prawn", colors="Greens"); g6 # ref_lines = ref_prawn
 
+# Spot prawn
+# Point Arguello: 34.577211
 
 # Merge
 g <- gridExtra::grid.arrange(g1, g2, g3, 
