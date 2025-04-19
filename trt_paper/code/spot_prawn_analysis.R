@@ -17,6 +17,7 @@ cadir <- "/Users/cfree/Dropbox/Chris/UCSB/projects/california/cdfw_data/data/con
 
 # Directories
 plotdir <- "trt_paper/figures"
+outdir <- "trt_paper/output"
 
 # Read data
 data_orig <- readRDS(file=file.path(cadir, "1980_2022_landings_receipts.Rds"))
@@ -117,8 +118,11 @@ ggplot(stats_full, aes(x=yweek, y=nvessels, color=region, group=region)) +
 
 # Add missing zeros
 stats_use <- stats_full %>% 
-  filter(year>=1987)
+  filter(year>=1987) %>% 
+  mutate(ntraps=nvessels*500)
 
+# Export data
+saveRDS(stats_use, file=file.path(outdir, "spot_prawn_traps_by_week.Rds"))
 
 
 # Plot data

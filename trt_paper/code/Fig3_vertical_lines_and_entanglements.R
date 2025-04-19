@@ -14,14 +14,21 @@ library(tidyverse)
 
 # Directories
 plotdir <- "trt_paper/figures"
+outdir <- "trt_paper/output"
 
 # Read data
 data_orig <- readRDS("/Users/cfree/Dropbox/Chris/UCSB/projects/ca_set_gillnet_bycatch/data/injury_mortality/processed/2007_2022_injury_mortality_data.Rds")
+
+# Read traps
+traps_orig <- readRDS(file = file.path(outdir, "2010_2023_traps_by_state_fishery_week.Rds"))
 
 
 # Build vertical line data
 ################################################################################
 
+# Format
+traps <- traps_orig %>% 
+  mutate(species=factor(species, levels=c("Dungeness crab", "Sablefish", "Spot prawn")))
 
 
 
@@ -110,15 +117,20 @@ base_theme <- theme(axis.text=element_text(size=6),
                     legend.background = element_rect(fill=alpha('blue', 0)))
 
 # Vertical lines
-g1 <- ggplot() +
-  geom_point(mapping=aes(x=2010:2024, y=rep(10000, 15)), color="white") +
+g1 <- ggplot(traps, aes(x=date, y=ntraps/1e3, color=species)) +
+  geom_line() +
   # Labels
-  lims(y=c(0, 10000)) +
-  labs(y="Number of vertical lines", tag="A") +
-  scale_x_continuous(breaks=seq(2010, 2024, 2)) +
+  labs(x="", y="Thousands of vertical lines", tag="A") +
+  scale_x_date(breaks=seq(ymd("2010-01-01"), 
+                          ymd("2024-01-01"), by="1 years"),
+               date_label="%Y") +
+  # Legend
+  scale_color_manual(name="Fishery", values=colors[1:3], drop=F) +
   # Theme
-  theme_bw() + base_theme
+  theme_bw() + base_theme +
+  theme(legend.position = "none")
 g1
+
 
 # Entanglements
 g2a <- ggplot(data2, aes(x=year, y=n, fill=fishery)) +
