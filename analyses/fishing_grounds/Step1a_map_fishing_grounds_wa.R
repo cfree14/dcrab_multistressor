@@ -11,14 +11,15 @@ library(tidyverse)
 
 # Directories
 datadir <- "data/confidential/washington/processed/"
-plotdir <- "figures/sdm"
+plotdir <- "analyses/fishing_grounds/figures"
+outdir <- "analyses/fishing_grounds/output"
 
 # Read data
 data_orig <- readRDS(file=file.path(datadir, "WDFW_2010_2020_dcrab_logbooks_expanded.Rds"))
 receipts_orig <- readRDS(file=file.path(datadir, "WDFW_1980_2023_dcrab_fish_tickets.Rds"))
 
 # Read ports
-ports <- readxl::read_excel(file.path(datadir, "wa_dcrab_ports.xlsx"))
+ports_orig <- readxl::read_excel(file.path(datadir, "wa_dcrab_ports.xlsx"))
 
 # Get land
 usa <- rnaturalearth::ne_states(country="United States of America", returnclass = "sf")
@@ -30,43 +31,46 @@ foreign <- rnaturalearth::ne_countries(country=c("Canada", "Mexico"), returnclas
 # 3. Export for analysis elsewhere
 # 4. Export figures here as well
 
-# Lots to do
-# Order ports north to south
-# Outliers (longitude outliers hidden below)
-# avergage up /down?
 
-
-# Imporant ports
+# Step 1. What ports to examine
 ################################################################################
 
-landings <- receipts_orig %>% 
+# Years of interest
+years_do <- 2011:2020
+
+# Calculate average landings
+stats_landings <- receipts_orig %>% 
   # Period of interest
-  filter(year %in% 2011:2020) %>%
+  filter(year %in% years_do) %>%
   # Group
   group_by(port) %>% 
-  summarize(landings_lbs=sum(landings_lbs, na.rm=T)/10) %>% 
+  summarize(landings_lbs=sum(landings_lbs, na.rm=T)/length(years_do)) %>% 
   ungroup()
-
-ggplot(landings, aes(x=landings_lbs/1e6, y=reorder(port, desc(landings_lbs)))) +
-  geom_bar(stat="identity") +
-  labs(x="Average annual landings\n(millions of lbs, 2011-2020)", y="")
-
-
-# Plot map
-################################################################################
-
-# Calculate port stats
-port_stats <- data_orig %>% 
+  
+# Calculate logbook stats
+stats_logs <- data_orig %>% 
   # Period of interest
-  filter(year %in% 2011:2020) %>%
+  filter(year %in% years_do) %>%
   # Number of vessels
   group_by(port) %>% 
-  summarize(nvessels=n_distinct(vessel)) %>% 
-  ungroup() %>% 
-  # Add XY
-  left_join(ports) %>% 
-  # Order
-  arrange(desc(lat_dd))
+  summarize(nvessels=n_distinct(vessel),
+            nobs=n(),
+            nobs_w_gps=sum(!is.na(lat_dd)),
+            pobs_w_gps=nobs_w_gps/nobs) %>% 
+  ungroup()
+
+# Merge port stats
+ports <- ports_orig %>% 
+  # Add stats
+  left_join(stats_landings, by="port") %>% 
+  left_join(stats_logs) %>% 
+  # Arrange and calculate cumulative percent
+  arrange(desc(landings_lbs)) %>% 
+  mutate(landings_cum_perc=cumsum(landings_lbs)/sum(landings_lbs, na.rm=T))
+  
+
+# Plot ports
+################################################################################
 
 # Map theme
 my_theme <-  theme(axis.text=element_text(size=8),
@@ -86,17 +90,17 @@ my_theme <-  theme(axis.text=element_text(size=8),
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
 # Plot ports
-g <- ggplot(port_stats) +
+g <- ggplot(ports) +
   # Plot land
   geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
   # Ports
-  geom_point(mapping=aes(x=long_dd, y=lat_dd, size=nvessels, color=nvessels), pch=16) +
+  geom_point(mapping=aes(x=long_dd, y=lat_dd, size=landings_lbs/1e6, color=landings_lbs/1e6), pch=16) +
   geom_text(mapping=aes(x=long_dd, y=lat_dd, label=nvessels), size=1.5) +
   ggrepel::geom_text_repel(mapping=aes(x=long_dd, y=lat_dd, label=port), size=1.8) +
   # Legend
-  scale_size_continuous(name="# of vessels") +
-  scale_color_gradientn(name="# of vessels", colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev()) +
+  scale_size_continuous(name="Annnual landings\n(millions lb)") +
+  scale_color_gradientn(name="Annnual landings\n(millions lb)", colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev()) +
   guides(color = guide_colorbar(ticks.colour = "black", frame.colour = "black", frame.linewidth = 0.2)) +
   # Crop
   coord_sf(xlim = c(-125, -122), ylim = c(45.5, 49)) +
@@ -109,13 +113,8 @@ ggsave(g, filename=file.path(plotdir, "FigSX_wa_fishing_ports.png"),
        width=4.5, height=5.5, units="in", dpi=600)
 
 
-# Plot data
+# Plot logbook points
 ################################################################################
-
-# Format data
-data <- data_orig %>% 
-  # Order ports
-  mutate(port=factor(port, levels=port_stats$port))
 
 # Theme
 base_theme <- theme(axis.text=element_blank(),
@@ -137,7 +136,7 @@ base_theme <- theme(axis.text=element_blank(),
                     legend.background = element_rect(fill=alpha('blue', 0)))
 
 # Plot data
-g <- ggplot(data %>% sample_frac(0.05), mapping=aes(x=long_dd_start, y=lat_dd_start)) +
+g <- ggplot(data_orig, mapping=aes(x=long_dd, y=lat_dd)) + # %>% sample_frac(0.05)
   facet_wrap(~port, ncol=10) +
   # Plot land
   geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
@@ -145,12 +144,12 @@ g <- ggplot(data %>% sample_frac(0.05), mapping=aes(x=long_dd_start, y=lat_dd_st
   # Plot fishing obs
   geom_point(color="grey70", size=0.8) +
   # Plot port
-  geom_point(data=port_stats, mapping=aes(x=long_dd, y=lat_dd), color="black", size=1.5) +
+  geom_point(data=ports, mapping=aes(x=long_dd, y=lat_dd), color="black", size=1.5) +
   # Crop
   coord_sf(xlim = c(-126, -122), ylim = c(45, 49)) +
   # Theme
   theme_bw() + base_theme
-g
+#g
 
 # Export figure
 ggsave(g, filename=file.path(plotdir, "FigSX_wa_fishing_grounds.png"),
@@ -158,19 +157,29 @@ ggsave(g, filename=file.path(plotdir, "FigSX_wa_fishing_grounds.png"),
 
 
 
-# Plot data
+# Step 2. Map fishing grounds
 ################################################################################
 
+# Find the first row where cum_pct exceeds 0.99
+cut_row <- which(ports$landings_cum_perc > 0.99)[1]
+
+# Ports to evaluate
+ports_vec <- ports %>% 
+  # Mark ports contributing to top 99% of landings
+  mutate(include_yn=ifelse(seq_len(nrow(.)) <= cut_row, 1, 0)) %>% 
+  filter(include_yn==1) %>% 
+  # ifelse(seq_len(nrow(df)) <= cut_row, 1, 0)
+  # filter(!is.na(nobs_w_gps)) %>% 
+  # filter(nvessels>20) %>% 
+  pull(port)
+
 # Loop through ports
-ports_vec <- port_stats %>% 
-  filter(!is.na(port)) %>% 
-  filter(nvessels>20) %>% pull(port)
 for(i in 1:length(ports_vec)){
   
   # Subset
   print(i)
   port_do <- ports_vec[i]
-  trips <- data %>% 
+  trips <- data_orig %>% 
     # Port of interest
     filter(port == port_do) %>% 
     # Only trips with GPS points
@@ -224,9 +233,16 @@ for(i in 1:length(ports_vec)){
   
 }
 
-# 
+# Transform contours
 contours_all1 <- contours_all %>% 
-  sf::st_transform(crs=sf::st_crs(usa))
+  # Transform
+  sf::st_transform(crs=sf::st_crs(usa)) %>% 
+  # Remove row names
+  remove_rownames() %>% 
+  # Add state
+  mutate(state="Washington") %>% 
+  # Simplify
+  select(state, port, percentile)
 
 # Plot fishing grounds
 ggplot() +
@@ -245,7 +261,9 @@ ggplot() +
 # Export data
 ################################################################################
 
-
+# Export
+saveRDS(ports, file=file.path(outdir, "ports_wa.Rds"))
+saveRDS(contours_all1, file=file.path(outdir, "fishing_grounds_wa.Rds"))
 
 
 

@@ -11,59 +11,44 @@ library(tidyverse)
 
 # Directories
 datadir <- "data/confidential/washington/processed/"
-plotdir <- "figures/sdm"
+plotdir <- "analyses/fishing_grounds/figures"
+outdir <- "analyses/fishing_grounds/output"
 
 # Read data
-data_orig <- readRDS(file=file.path(datadir, "WDFW_2010_2020_dcrab_logbooks_expanded.Rds"))
+wa_orig <- readRDS(file=file.path(outdir, "fishing_grounds_wa.Rds"))
+wa_ports_orig <- readRDS(file=file.path(outdir, "ports_wa.Rds"))
+or_orig <- readRDS(file=file.path(outdir, "fishing_grounds_or.Rds"))
+or_ports_orig <- readRDS(file=file.path(outdir, "ports_or.Rds"))
+ca_orig <- readRDS(file=file.path(outdir, "fishing_grounds_ca.Rds"))
+ca_ports_orig <- readRDS(file=file.path(outdir, "ports_ca.Rds"))
 
-# Get land
-usa <- rnaturalearth::ne_states(country="United States of America", returnclass = "sf")
-foreign <- rnaturalearth::ne_countries(country=c("Canada", "Mexico"), returnclass = "sf")
-
-# Lots to do
-# Order ports north to south
-# Outliers (longitude outliers hidden below)
-# avergage up /down?
-
-
-# Plot data
+# Merge
 ################################################################################
 
-# Theme
-base_theme <- theme(axis.text=element_blank(),
-                    axis.title=element_blank(),
-                    legend.text=element_text(size=6),
-                    legend.title=element_text(size=7),
-                    strip.text = element_text(size=7),
-                    plot.tag=element_text(size=8),
-                    plot.title=element_blank(),
-                    plot.subtitle = element_text(size=5, face="italic"),
-                    # Gridlines
-                    panel.grid.major = element_blank(),
-                    panel.grid.minor = element_blank(),
-                    panel.background = element_blank(),
-                    axis.line = element_line(colour = "black"),
-                    # Legend
-                    legend.key.size=unit(0.3, "cm"),
-                    legend.key=element_blank(),
-                    legend.background = element_rect(fill=alpha('blue', 0)))
+# # Clean WA
+# wa <- wa_orig %>% 
+#   remove_rownames() %>% 
+#   mutate(state="Washington") %>% 
+#   select(state, port, percentile)
+# 
+# # Clean OR
+# or <- or_orig %>% 
+#   remove_rownames() %>% 
+#   mutate(state="Oregon") %>% 
+#   select(state, port, percentile)
 
-# Plot data
-g <- ggplot(data_orig, mapping=aes(x=long_dd_start, y=lat_dd_start)) +
-  facet_wrap(~port, ncol=10) +
-  # Plot land
-  geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
-  geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
-  # Data
-  geom_point() +
-  # Crop
-  coord_sf(xlim = c(-126, -122), ylim = c(45, 49)) +
-  # Theme
-  theme_bw() + base_theme
-g
+# Merge
+all <- bind_rows(wa_orig, or_orig, ca_orig)
+ports <- bind_rows(wa_ports_orig, or_ports_orig, ca_ports_orig)
 
-# Export figure
-ggsave(g, filename=file.path(plotdir, "FigSX_fishing_grounds_wa.png"),
-       width=6.5, height=6.25, units="in", dpi=600)
+# Export
+################################################################################
+
+# Export
+saveRDS(all, file=file.path(outdir, "fishing_grounds.Rds"))
+saveRDS(ports, file=file.path(outdir, "ports.Rds"))
+
+
+
 
 

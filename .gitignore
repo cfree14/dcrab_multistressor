@@ -4,9 +4,11 @@
 .Ruserdata
 .DS_Store
 
-# Confidential
+# Not important
 admin
 references
+
+# Confidential
 data/confidential
 
 # Large files
