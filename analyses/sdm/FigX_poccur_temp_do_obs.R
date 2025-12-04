@@ -15,6 +15,7 @@ library(tidyverse)
 trawldir <- "data/trawl_survey/processed"
 oceandir <- "data/live_ocean/processed"
 outdir <- "output/sdm"
+plotdir <- "analyses/sdm/figures"
 
 # Read data
 data_orig <- readRDS(file=file.path(trawldir, "trawl_data_with_envi.Rds"))
@@ -101,12 +102,14 @@ my_theme <- theme(axis.text=element_text(size=8),
                    legend.title=element_text(size=9),
                    strip.text=element_text(size=8),
                    plot.title=element_text(size=9),
+                   plot.tag=element_text(size=9),
                    # Gridlines
                    panel.grid.major = element_blank(), 
                    panel.grid.minor = element_blank(),
                    panel.background = element_blank(), 
                    axis.line = element_line(colour = "black"),
                    # Legend
+                   legend.key.size = unit(0.2, "cm"),
                    legend.key = element_rect(fill = NA, color=NA),
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
@@ -115,8 +118,8 @@ g1 <- ggplot(stats_lo %>% filter(pcrab>0), aes(x=temp_c_bin, y=do_mg_l_bin, fill
   geom_tile(data=stats_lo %>% filter(pcrab==0), fill="grey80") +
   geom_tile() +
   # Reference lines
-  geom_hline(yintercept=2, linetype="dashed") +
-  geom_vline(xintercept=15, linetype="dashed") +
+  # geom_hline(yintercept=2, linetype="dashed") +
+  # geom_vline(xintercept=15, linetype="dashed") +
   # Labels
   labs(x="Temperature (°C)", y="Dissolved oxygen (mg/l)",
        tag="A", title="LiveOcean (OR and WA only)") +
@@ -136,8 +139,8 @@ g2 <- ggplot(stats_glorys %>% filter(pcrab>0), aes(x=temp_c_bin, y=do_mg_l_bin, 
   geom_tile(data=stats_glorys %>% filter(pcrab==0), fill="grey80") +
   geom_tile() +
   # Reference lines
-  geom_hline(yintercept=2, linetype="dashed") +
-  geom_vline(xintercept=15, linetype="dashed") +
+  # geom_hline(yintercept=2, linetype="dashed") +
+  # geom_vline(xintercept=15, linetype="dashed") +
   # Labels
   labs(x="Temperature (°C)", y="Dissolved oxygen (mg/l)",
        tag="B", title="GLORYS (coastwide)") +
@@ -155,6 +158,10 @@ g2
 
 # Merge
 g <- gridExtra::grid.arrange(g1, g2, nrow=1)
+
+# Export
+ggsave(g, filename=file.path(plotdir, "FigSX_poccur_temp_do_obs.png"),
+       width=6.5, height=3, units="in", dpi=600)
 
 
 
