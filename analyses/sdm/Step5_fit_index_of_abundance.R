@@ -14,7 +14,7 @@ library(tidyverse)
 # Directories
 trawldir <- "data/trawl_survey/processed"
 oceandir <- "data/live_ocean/processed"
-outdir <- "output/sdm"
+outdir <- "analyses/sdm/output"
 plotdir <- "figures/sdm"
 
 # Read data
@@ -29,6 +29,7 @@ footprint_orig <- readRDS(file=file.path(trawldir, "nwfsc_wcbts_grid_cells.Rds")
 # USA
 usa <- rnaturalearth::ne_states(country="United States of America", returnclass = "sf") %>% 
   sf::st_transform( crs=32610)
+
 
 # Format survey data
 ################################################################################
@@ -142,7 +143,8 @@ grid_utm <- as.data.frame(sf::st_coordinates(grid_utm_sf)) %>%
 yrs <- unique(data$year)
 grid_utm_yrs <- purrr::map_df(yrs, function(x){
   df <- grid_utm %>% 
-    mutate(year=x) %>% 
+    mutate(year=x,
+           pass=2) %>% 
     select(year, everything())
 })
 
@@ -163,7 +165,7 @@ plot(mesh)
 # Fit model
 m <- sdmTMB(
   data = data, 
-  formula = cpue_kg_km2 ~ 0 + as.factor(year),
+  formula = cpue_kg_km2 ~ 0 + as.factor(year) + as.factor(pass),
   time = "year", 
   mesh = mesh, 
   family = tweedie(link = "log"))

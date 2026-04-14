@@ -14,7 +14,7 @@ library(tidyverse)
 # Directories
 trawldir <- "data/trawl_survey/processed"
 oceandir <- "data/live_ocean/processed"
-outdir <- "output/sdm"
+outdir <- "analyses/sdm/output"
 plotdir <- "figures/sdm"
 
 # Read data
@@ -37,12 +37,12 @@ plot(mesh)
 g <- inlabru::gg(my_mesh$mesh)
 g
 
-mesh <- fm_mesh_1d(seq(0, 10, by = 0.5))
+mesh <- fmesher::fm_mesh_1d(seq(0, 10, by = 0.5))
 
 # Plot it
 
-ggplot() +
-  gg(mesh)
+# ggplot() +
+#   fmesher:gg(mesh)
 
 gorillas <- inlabru::gorillas_sf
 
