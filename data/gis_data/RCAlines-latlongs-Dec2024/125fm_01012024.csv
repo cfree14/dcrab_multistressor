@@ -1,0 +1,456 @@
+id_area,area_name,lat_deg,lat_min,lat_dir,lon_deg,lon_min,lon_dir,lat_dd,lon_dd
+1,125-fm (229-m) Contour - Coastwide,48,15,N,125,41.13,W,48.25,-125.6855
+2,125-fm (229-m) Contour - Coastwide,48,13.05,N,125,37.43,W,48.2175,-125.6238
+3,125-fm (229-m) Contour - Coastwide,48,8.62,N,125,41.68,W,48.1437,-125.6947
+4,125-fm (229-m) Contour - Coastwide,48,7.42,N,125,42.38,W,48.1237,-125.7063
+5,125-fm (229-m) Contour - Coastwide,48,4.2,N,125,36.57,W,48.07,-125.6095
+6,125-fm (229-m) Contour - Coastwide,48,2.79,N,125,35.55,W,48.0465,-125.5925
+7,125-fm (229-m) Contour - Coastwide,48,0.48,N,125,37.84,W,48.008,-125.6307
+8,125-fm (229-m) Contour - Coastwide,47,54.9,N,125,34.79,W,47.915,-125.5798
+9,125-fm (229-m) Contour - Coastwide,47,58.37,N,125,26.58,W,47.9728,-125.443
+10,125-fm (229-m) Contour - Coastwide,47,59.84,N,125,25.2,W,47.9973,-125.42
+11,125-fm (229-m) Contour - Coastwide,48,1.85,N,125,24.12,W,48.0308,-125.402
+12,125-fm (229-m) Contour - Coastwide,48,2.13,N,125,22.8,W,48.0355,-125.38
+13,125-fm (229-m) Contour - Coastwide,48,3.31,N,125,22.46,W,48.0552,-125.3743
+14,125-fm (229-m) Contour - Coastwide,48,6.83,N,125,17.73,W,48.1138,-125.2955
+15,125-fm (229-m) Contour - Coastwide,48,10.08,N,125,15.56,W,48.168,-125.2593
+16,125-fm (229-m) Contour - Coastwide,48,11.24,N,125,13.72,W,48.1873,-125.2287
+17,125-fm (229-m) Contour - Coastwide,48,12.41,N,125,14.48,W,48.2068,-125.2413
+18,125-fm (229-m) Contour - Coastwide,48,13.01,N,125,13.77,W,48.2168,-125.2295
+19,125-fm (229-m) Contour - Coastwide,48,13.59,N,125,12.83,W,48.2265,-125.2138
+20,125-fm (229-m) Contour - Coastwide,48,12.22,N,125,12.28,W,48.2037,-125.2047
+21,125-fm (229-m) Contour - Coastwide,48,11.15,N,125,12.26,W,48.1858,-125.2043
+22,125-fm (229-m) Contour - Coastwide,48,10.18,N,125,10.44,W,48.1697,-125.174
+23,125-fm (229-m) Contour - Coastwide,48,10.18,N,125,6.32,W,48.1697,-125.1053
+24,125-fm (229-m) Contour - Coastwide,48,15.39,N,125,2.83,W,48.2565,-125.0472
+25,125-fm (229-m) Contour - Coastwide,48,18.32,N,125,1,W,48.3053,-125.0167
+26,125-fm (229-m) Contour - Coastwide,48,21.67,N,125,1.86,W,48.3612,-125.031
+27,125-fm (229-m) Contour - Coastwide,48,25.7,N,125,0.1,W,48.4283,-125.0017
+28,125-fm (229-m) Contour - Coastwide,48,26.43,N,124,56.65,W,48.4405,-124.9442
+29,125-fm (229-m) Contour - Coastwide,48,24.28,N,124,56.48,W,48.4047,-124.9413
+30,125-fm (229-m) Contour - Coastwide,48,23.27,N,124,59.12,W,48.3878,-124.9853
+31,125-fm (229-m) Contour - Coastwide,48,21.79,N,124,59.3,W,48.3632,-124.9883
+32,125-fm (229-m) Contour - Coastwide,48,20.71,N,124,58.74,W,48.3452,-124.979
+33,125-fm (229-m) Contour - Coastwide,48,19.84,N,124,57.09,W,48.3307,-124.9515
+34,125-fm (229-m) Contour - Coastwide,48,22.06,N,124,54.78,W,48.3677,-124.913
+35,125-fm (229-m) Contour - Coastwide,48,22.45,N,124,53.35,W,48.3742,-124.8892
+36,125-fm (229-m) Contour - Coastwide,48,22.74,N,124,50.96,W,48.379,-124.8493
+37,125-fm (229-m) Contour - Coastwide,48,21.04,N,124,52.6,W,48.3507,-124.8767
+38,125-fm (229-m) Contour - Coastwide,48,18.07,N,124,55.85,W,48.3012,-124.9308
+39,125-fm (229-m) Contour - Coastwide,48,15.03,N,124,58.16,W,48.2505,-124.9693
+40,125-fm (229-m) Contour - Coastwide,48,11.31,N,124,58.53,W,48.1885,-124.9755
+41,125-fm (229-m) Contour - Coastwide,48,6.25,N,125,0.06,W,48.1042,-125.001
+42,125-fm (229-m) Contour - Coastwide,48,4.7,N,125,1.8,W,48.0783,-125.03
+43,125-fm (229-m) Contour - Coastwide,48,4.93,N,125,3.92,W,48.0822,-125.0653
+44,125-fm (229-m) Contour - Coastwide,48,6.44,N,125,6.5,W,48.1073,-125.1083
+45,125-fm (229-m) Contour - Coastwide,48,7.34,N,125,9.35,W,48.1223,-125.1558
+46,125-fm (229-m) Contour - Coastwide,48,7.62,N,125,11.37,W,48.127,-125.1895
+47,125-fm (229-m) Contour - Coastwide,48,3.71,N,125,17.63,W,48.0618,-125.2938
+48,125-fm (229-m) Contour - Coastwide,48,1.35,N,125,18.66,W,48.0225,-125.311
+49,125-fm (229-m) Contour - Coastwide,48,0.05,N,125,19.66,W,48.0008,-125.3277
+50,125-fm (229-m) Contour - Coastwide,47,59.51,N,125,18.9,W,47.9918,-125.315
+51,125-fm (229-m) Contour - Coastwide,47,58.29,N,125,16.64,W,47.9715,-125.2773
+52,125-fm (229-m) Contour - Coastwide,47,54.67,N,125,13.2,W,47.9112,-125.22
+53,125-fm (229-m) Contour - Coastwide,47,53.15,N,125,12.53,W,47.8858,-125.2088
+54,125-fm (229-m) Contour - Coastwide,47,48.46,N,125,4.72,W,47.8077,-125.0787
+55,125-fm (229-m) Contour - Coastwide,47,46.1,N,125,4,W,47.7683,-125.0667
+56,125-fm (229-m) Contour - Coastwide,47,44.6,N,125,4.49,W,47.7433,-125.0748
+57,125-fm (229-m) Contour - Coastwide,47,42.9,N,125,4.72,W,47.715,-125.0787
+58,125-fm (229-m) Contour - Coastwide,47,40.71,N,125,4.68,W,47.6785,-125.078
+59,125-fm (229-m) Contour - Coastwide,47,39.02,N,125,5.63,W,47.6503,-125.0938
+60,125-fm (229-m) Contour - Coastwide,47,34.86,N,125,2.11,W,47.581,-125.0352
+61,125-fm (229-m) Contour - Coastwide,47,31.64,N,124,58.11,W,47.5273,-124.9685
+62,125-fm (229-m) Contour - Coastwide,47,29.69,N,124,55.71,W,47.4948,-124.9285
+63,125-fm (229-m) Contour - Coastwide,47,29.35,N,124,53.23,W,47.4892,-124.8872
+64,125-fm (229-m) Contour - Coastwide,47,28.56,N,124,51.34,W,47.476,-124.8557
+65,125-fm (229-m) Contour - Coastwide,47,25.31,N,124,48.2,W,47.4218,-124.8033
+66,125-fm (229-m) Contour - Coastwide,47,23.92,N,124,47.15,W,47.3987,-124.7858
+67,125-fm (229-m) Contour - Coastwide,47,18.09,N,124,45.74,W,47.3015,-124.7623
+68,125-fm (229-m) Contour - Coastwide,47,18.65,N,124,51.51,W,47.3108,-124.8585
+69,125-fm (229-m) Contour - Coastwide,47,18.12,N,124,52.58,W,47.302,-124.8763
+70,125-fm (229-m) Contour - Coastwide,47,17.64,N,124,50.45,W,47.294,-124.8408
+71,125-fm (229-m) Contour - Coastwide,47,16.31,N,124,50.92,W,47.2718,-124.8487
+72,125-fm (229-m) Contour - Coastwide,47,15.6,N,124,52.62,W,47.26,-124.877
+73,125-fm (229-m) Contour - Coastwide,47,14.25,N,124,52.49,W,47.2375,-124.8748
+74,125-fm (229-m) Contour - Coastwide,47,11.32,N,124,57.19,W,47.1887,-124.9532
+75,125-fm (229-m) Contour - Coastwide,47,9.14,N,124,57.46,W,47.1523,-124.9577
+76,125-fm (229-m) Contour - Coastwide,47,8.83,N,124,58.47,W,47.1472,-124.9745
+77,125-fm (229-m) Contour - Coastwide,47,5.88,N,124,58.26,W,47.098,-124.971
+78,125-fm (229-m) Contour - Coastwide,47,3.6,N,124,55.84,W,47.06,-124.9307
+79,125-fm (229-m) Contour - Coastwide,47,2.91,N,124,56.15,W,47.0485,-124.9358
+80,125-fm (229-m) Contour - Coastwide,47,1.08,N,124,59.46,W,47.018,-124.991
+81,125-fm (229-m) Contour - Coastwide,46,58.13,N,124,58.83,W,46.9688,-124.9805
+82,125-fm (229-m) Contour - Coastwide,46,57.44,N,124,57.78,W,46.9573,-124.963
+83,125-fm (229-m) Contour - Coastwide,46,55.98,N,124,54.6,W,46.933,-124.91
+84,125-fm (229-m) Contour - Coastwide,46,54.9,N,124,54.14,W,46.915,-124.9023
+85,125-fm (229-m) Contour - Coastwide,46,58.47,N,124,49.65,W,46.9745,-124.8275
+86,125-fm (229-m) Contour - Coastwide,46,54.44,N,124,48.79,W,46.9073,-124.8132
+87,125-fm (229-m) Contour - Coastwide,46,54.41,N,124,52.87,W,46.9068,-124.8812
+88,125-fm (229-m) Contour - Coastwide,46,49.36,N,124,52.77,W,46.8227,-124.8795
+89,125-fm (229-m) Contour - Coastwide,46,40.06,N,124,45.34,W,46.6677,-124.7557
+90,125-fm (229-m) Contour - Coastwide,46,39.64,N,124,42.21,W,46.6607,-124.7035
+91,125-fm (229-m) Contour - Coastwide,46,34.27,N,124,34.63,W,46.5712,-124.5772
+92,125-fm (229-m) Contour - Coastwide,46,33.58,N,124,29.1,W,46.5597,-124.485
+93,125-fm (229-m) Contour - Coastwide,46,25.64,N,124,32.57,W,46.4273,-124.5428
+94,125-fm (229-m) Contour - Coastwide,46,21.33,N,124,36.36,W,46.3555,-124.606
+95,125-fm (229-m) Contour - Coastwide,46,20.59,N,124,36.15,W,46.3432,-124.6025
+96,125-fm (229-m) Contour - Coastwide,46,19.38,N,124,38.21,W,46.323,-124.6368
+97,125-fm (229-m) Contour - Coastwide,46,17.94,N,124,38.1,W,46.299,-124.635
+98,125-fm (229-m) Contour - Coastwide,46,16,N,124,22.18,W,46.2667,-124.3697
+99,125-fm (229-m) Contour - Coastwide,46,13.37,N,124,30.7,W,46.2228,-124.5117
+100,125-fm (229-m) Contour - Coastwide,46,12.2,N,124,36.04,W,46.2033,-124.6007
+101,125-fm (229-m) Contour - Coastwide,46,11.01,N,124,38.68,W,46.1835,-124.6447
+102,125-fm (229-m) Contour - Coastwide,46,9.73,N,124,39.91,W,46.1622,-124.6652
+103,125-fm (229-m) Contour - Coastwide,46,3.23,N,124,42.03,W,46.0538,-124.7005
+104,125-fm (229-m) Contour - Coastwide,46,1.16,N,124,42.06,W,46.0193,-124.701
+105,125-fm (229-m) Contour - Coastwide,46,0.35,N,124,42.26,W,46.0058,-124.7043
+106,125-fm (229-m) Contour - Coastwide,45,52.81,N,124,41.62,W,45.8802,-124.6937
+107,125-fm (229-m) Contour - Coastwide,45,49.7,N,124,41.14,W,45.8283,-124.6857
+108,125-fm (229-m) Contour - Coastwide,45,46,N,124,38.92,W,45.7667,-124.6487
+109,125-fm (229-m) Contour - Coastwide,45,45.18,N,124,38.39,W,45.753,-124.6398
+110,125-fm (229-m) Contour - Coastwide,45,43.24,N,124,37.77,W,45.7207,-124.6295
+111,125-fm (229-m) Contour - Coastwide,45,34.75,N,124,28.58,W,45.5792,-124.4763
+112,125-fm (229-m) Contour - Coastwide,45,19.9,N,124,21.34,W,45.3317,-124.3557
+113,125-fm (229-m) Contour - Coastwide,45,12.44,N,124,19.34,W,45.2073,-124.3223
+114,125-fm (229-m) Contour - Coastwide,45,7.48,N,124,19.73,W,45.1247,-124.3288
+115,125-fm (229-m) Contour - Coastwide,45,3.83,N,124,21.2,W,45.0638,-124.3533
+116,125-fm (229-m) Contour - Coastwide,44,59.96,N,124,22.91,W,44.9993,-124.3818
+117,125-fm (229-m) Contour - Coastwide,44,54.73,N,124,26.84,W,44.9122,-124.4473
+118,125-fm (229-m) Contour - Coastwide,44,51.16,N,124,31.41,W,44.8527,-124.5235
+119,125-fm (229-m) Contour - Coastwide,44,49.97,N,124,32.37,W,44.8328,-124.5395
+120,125-fm (229-m) Contour - Coastwide,44,47.06,N,124,34.43,W,44.7843,-124.5738
+121,125-fm (229-m) Contour - Coastwide,44,41.38,N,124,36.52,W,44.6897,-124.6087
+122,125-fm (229-m) Contour - Coastwide,44,31.8,N,124,38.11,W,44.53,-124.6352
+123,125-fm (229-m) Contour - Coastwide,44,30.35,N,124,43.03,W,44.5058,-124.7172
+124,125-fm (229-m) Contour - Coastwide,44,27.95,N,124,45.13,W,44.4658,-124.7522
+125,125-fm (229-m) Contour - Coastwide,44,24.73,N,124,47.42,W,44.4122,-124.7903
+126,125-fm (229-m) Contour - Coastwide,44,19.67,N,124,51.17,W,44.3278,-124.8528
+127,125-fm (229-m) Contour - Coastwide,44,17.96,N,124,52.52,W,44.2993,-124.8753
+128,125-fm (229-m) Contour - Coastwide,44,13.7,N,124,56.45,W,44.2283,-124.9408
+129,125-fm (229-m) Contour - Coastwide,44,12.26,N,124,57.53,W,44.2043,-124.9588
+130,125-fm (229-m) Contour - Coastwide,44,8.3,N,124,57.17,W,44.1383,-124.9528
+131,125-fm (229-m) Contour - Coastwide,44,7.57,N,124,57.19,W,44.1262,-124.9532
+132,125-fm (229-m) Contour - Coastwide,44,4.78,N,124,56.31,W,44.0797,-124.9385
+133,125-fm (229-m) Contour - Coastwide,44,1.14,N,124,56.07,W,44.019,-124.9345
+134,125-fm (229-m) Contour - Coastwide,43,59.43,N,124,57.22,W,43.9905,-124.9537
+135,125-fm (229-m) Contour - Coastwide,43,57.49,N,124,57.31,W,43.9582,-124.9552
+136,125-fm (229-m) Contour - Coastwide,43,55.73,N,124,55.41,W,43.9288,-124.9235
+137,125-fm (229-m) Contour - Coastwide,43,54.74,N,124,53.15,W,43.9123,-124.8858
+138,125-fm (229-m) Contour - Coastwide,43,54.58,N,124,52.18,W,43.9097,-124.8697
+139,125-fm (229-m) Contour - Coastwide,43,53.18,N,124,47.41,W,43.8863,-124.7902
+140,125-fm (229-m) Contour - Coastwide,43,53.6,N,124,37.45,W,43.8933,-124.6242
+141,125-fm (229-m) Contour - Coastwide,43,53.05,N,124,36,W,43.8842,-124.6
+142,125-fm (229-m) Contour - Coastwide,43,47.93,N,124,35.18,W,43.7988,-124.5863
+143,125-fm (229-m) Contour - Coastwide,43,39.32,N,124,35.14,W,43.6553,-124.5857
+144,125-fm (229-m) Contour - Coastwide,43,32.38,N,124,35.26,W,43.5397,-124.5877
+145,125-fm (229-m) Contour - Coastwide,43,30.19,N,124,35.89,W,43.5032,-124.5982
+146,125-fm (229-m) Contour - Coastwide,43,27.8,N,124,36.42,W,43.4633,-124.607
+147,125-fm (229-m) Contour - Coastwide,43,23.73,N,124,39.66,W,43.3955,-124.661
+148,125-fm (229-m) Contour - Coastwide,43,20.83,N,124,41.18,W,43.3472,-124.6863
+149,125-fm (229-m) Contour - Coastwide,43,10.48,N,124,43.54,W,43.1747,-124.7257
+150,125-fm (229-m) Contour - Coastwide,43,4.77,N,124,45.51,W,43.0795,-124.7585
+151,125-fm (229-m) Contour - Coastwide,43,5.94,N,124,49.77,W,43.099,-124.8295
+152,125-fm (229-m) Contour - Coastwide,43,3.38,N,124,51.86,W,43.0563,-124.8643
+153,125-fm (229-m) Contour - Coastwide,43,0.39,N,124,51.77,W,43.0065,-124.8628
+154,125-fm (229-m) Contour - Coastwide,42,56.8,N,124,53.38,W,42.9467,-124.8897
+155,125-fm (229-m) Contour - Coastwide,42,54.53,N,124,52.72,W,42.9088,-124.8787
+156,125-fm (229-m) Contour - Coastwide,42,52.89,N,124,47.45,W,42.8815,-124.7908
+157,125-fm (229-m) Contour - Coastwide,42,50,N,124,47.03,W,42.8333,-124.7838
+158,125-fm (229-m) Contour - Coastwide,42,48.1,N,124,46.75,W,42.8017,-124.7792
+159,125-fm (229-m) Contour - Coastwide,42,46.34,N,124,43.54,W,42.7723,-124.7257
+160,125-fm (229-m) Contour - Coastwide,42,41.66,N,124,42.7,W,42.6943,-124.7117
+161,125-fm (229-m) Contour - Coastwide,42,39.97,N,124,42.45,W,42.6662,-124.7075
+162,125-fm (229-m) Contour - Coastwide,42,32.53,N,124,42.77,W,42.5422,-124.7128
+163,125-fm (229-m) Contour - Coastwide,42,30.37,N,124,42.97,W,42.5062,-124.7162
+164,125-fm (229-m) Contour - Coastwide,42,28.07,N,124,47.65,W,42.4678,-124.7942
+165,125-fm (229-m) Contour - Coastwide,42,21.58,N,124,41.41,W,42.3597,-124.6902
+166,125-fm (229-m) Contour - Coastwide,42,15.17,N,124,36.25,W,42.2528,-124.6042
+167,125-fm (229-m) Contour - Coastwide,42,13.67,N,124,36.2,W,42.2278,-124.6033
+168,125-fm (229-m) Contour - Coastwide,42,8.29,N,124,36.08,W,42.1382,-124.6013
+169,125-fm (229-m) Contour - Coastwide,42,0,N,124,35.46,W,42,-124.591
+170,125-fm (229-m) Contour - Coastwide,41,47.67,N,124,28.67,W,41.7945,-124.4778
+171,125-fm (229-m) Contour - Coastwide,41,32.91,N,124,29.01,W,41.5485,-124.4835
+172,125-fm (229-m) Contour - Coastwide,41,22.57,N,124,28.66,W,41.3762,-124.4777
+173,125-fm (229-m) Contour - Coastwide,41,13.38,N,124,22.88,W,41.223,-124.3813
+174,125-fm (229-m) Contour - Coastwide,41,6.42,N,124,22.02,W,41.107,-124.367
+175,125-fm (229-m) Contour - Coastwide,40,50.19,N,124,25.58,W,40.8365,-124.4263
+176,125-fm (229-m) Contour - Coastwide,40,44.08,N,124,30.43,W,40.7347,-124.5072
+177,125-fm (229-m) Contour - Coastwide,40,40.54,N,124,31.75,W,40.6757,-124.5292
+178,125-fm (229-m) Contour - Coastwide,40,37.36,N,124,29.17,W,40.6227,-124.4862
+179,125-fm (229-m) Contour - Coastwide,40,35.3,N,124,30.03,W,40.5883,-124.5005
+180,125-fm (229-m) Contour - Coastwide,40,37.02,N,124,37.1,W,40.617,-124.6183
+181,125-fm (229-m) Contour - Coastwide,40,35.82,N,124,39.58,W,40.597,-124.6597
+182,125-fm (229-m) Contour - Coastwide,40,31.7,N,124,39.97,W,40.5283,-124.6662
+183,125-fm (229-m) Contour - Coastwide,40,30.35,N,124,37.52,W,40.5058,-124.6253
+184,125-fm (229-m) Contour - Coastwide,40,28.39,N,124,37.16,W,40.4732,-124.6193
+185,125-fm (229-m) Contour - Coastwide,40,24.77,N,124,35.39,W,40.4128,-124.5898
+186,125-fm (229-m) Contour - Coastwide,40,23.22,N,124,31.87,W,40.387,-124.5312
+187,125-fm (229-m) Contour - Coastwide,40,23.4,N,124,28.65,W,40.39,-124.4775
+188,125-fm (229-m) Contour - Coastwide,40,22.32,N,124,25.15,W,40.372,-124.4192
+189,125-fm (229-m) Contour - Coastwide,40,21.85,N,124,25.09,W,40.3642,-124.4182
+190,125-fm (229-m) Contour - Coastwide,40,21.91,N,124,27.97,W,40.3652,-124.4662
+191,125-fm (229-m) Contour - Coastwide,40,21.37,N,124,29.03,W,40.3562,-124.4838
+192,125-fm (229-m) Contour - Coastwide,40,19.74,N,124,28.71,W,40.329,-124.4785
+193,125-fm (229-m) Contour - Coastwide,40,18.52,N,124,27.26,W,40.3087,-124.4543
+194,125-fm (229-m) Contour - Coastwide,40,17.57,N,124,25.49,W,40.2928,-124.4248
+195,125-fm (229-m) Contour - Coastwide,40,18.2,N,124,23.63,W,40.3033,-124.3938
+196,125-fm (229-m) Contour - Coastwide,40,15.89,N,124,26,W,40.2648,-124.4333
+197,125-fm (229-m) Contour - Coastwide,40,17,N,124,35.01,W,40.2833,-124.5835
+198,125-fm (229-m) Contour - Coastwide,40,15.97,N,124,35.91,W,40.2662,-124.5985
+199,125-fm (229-m) Contour - Coastwide,40,10,N,124,22,W,40.1667,-124.3667
+200,125-fm (229-m) Contour - Coastwide,40,7.35,N,124,18.64,W,40.1225,-124.3107
+201,125-fm (229-m) Contour - Coastwide,40,8.46,N,124,16.24,W,40.141,-124.2707
+202,125-fm (229-m) Contour - Coastwide,40,6.26,N,124,17.54,W,40.1043,-124.2923
+203,125-fm (229-m) Contour - Coastwide,40,3.26,N,124,15.3,W,40.0543,-124.255
+204,125-fm (229-m) Contour - Coastwide,40,2,N,124,12.97,W,40.0333,-124.2162
+205,125-fm (229-m) Contour - Coastwide,40,2.67,N,124,11.83,W,40.0445,-124.1972
+206,125-fm (229-m) Contour - Coastwide,40,2.7,N,124,10.57,W,40.045,-124.1762
+207,125-fm (229-m) Contour - Coastwide,40,4.08,N,124,10.09,W,40.068,-124.1682
+208,125-fm (229-m) Contour - Coastwide,40,4.08,N,124,9.1,W,40.068,-124.1517
+209,125-fm (229-m) Contour - Coastwide,40,1.23,N,124,8.91,W,40.0205,-124.1485
+210,125-fm (229-m) Contour - Coastwide,40,1.18,N,124,9.92,W,40.0197,-124.1653
+211,125-fm (229-m) Contour - Coastwide,39,58.05,N,124,11.87,W,39.9675,-124.1978
+212,125-fm (229-m) Contour - Coastwide,39,56.39,N,124,8.7,W,39.9398,-124.145
+213,125-fm (229-m) Contour - Coastwide,39,54.64,N,124,7.31,W,39.9107,-124.1218
+214,125-fm (229-m) Contour - Coastwide,39,53.87,N,124,7.95,W,39.8978,-124.1325
+215,125-fm (229-m) Contour - Coastwide,39,52.42,N,124,8.18,W,39.8737,-124.1363
+216,125-fm (229-m) Contour - Coastwide,39,49.64,N,124,6.05,W,39.8273,-124.1008
+217,125-fm (229-m) Contour - Coastwide,39,49.3,N,124,4.6,W,39.8217,-124.0767
+218,125-fm (229-m) Contour - Coastwide,39,48.49,N,124,3.86,W,39.8082,-124.0643
+219,125-fm (229-m) Contour - Coastwide,39,47.73,N,124,4.59,W,39.7955,-124.0765
+220,125-fm (229-m) Contour - Coastwide,39,42.5,N,124,0.6,W,39.7083,-124.01
+221,125-fm (229-m) Contour - Coastwide,39,34.23,N,123,56.82,W,39.5705,-123.947
+222,125-fm (229-m) Contour - Coastwide,39,33,N,123,56.44,W,39.55,-123.9407
+223,125-fm (229-m) Contour - Coastwide,39,30.96,N,123,56,W,39.516,-123.9333
+224,125-fm (229-m) Contour - Coastwide,39,31.34,N,123,56.71,W,39.5223,-123.9452
+225,125-fm (229-m) Contour - Coastwide,39,32.03,N,123,57.44,W,39.5338,-123.9573
+226,125-fm (229-m) Contour - Coastwide,39,31.43,N,123,58.16,W,39.5238,-123.9693
+227,125-fm (229-m) Contour - Coastwide,39,5.56,N,123,57.24,W,39.0927,-123.954
+228,125-fm (229-m) Contour - Coastwide,39,1.75,N,123,56.83,W,39.0292,-123.9472
+229,125-fm (229-m) Contour - Coastwide,38,59.52,N,123,55.95,W,38.992,-123.9325
+230,125-fm (229-m) Contour - Coastwide,38,58.98,N,123,56.57,W,38.983,-123.9428
+231,125-fm (229-m) Contour - Coastwide,38,57.5,N,123,56.57,W,38.9583,-123.9428
+232,125-fm (229-m) Contour - Coastwide,38,53.91,N,123,56,W,38.8985,-123.9333
+233,125-fm (229-m) Contour - Coastwide,38,42.57,N,123,46.6,W,38.7095,-123.7767
+234,125-fm (229-m) Contour - Coastwide,38,28.72,N,123,35.61,W,38.4787,-123.5935
+235,125-fm (229-m) Contour - Coastwide,38,28.01,N,123,36.47,W,38.4668,-123.6078
+236,125-fm (229-m) Contour - Coastwide,38,20.94,N,123,31.26,W,38.349,-123.521
+237,125-fm (229-m) Contour - Coastwide,38,15.94,N,123,25.33,W,38.2657,-123.4222
+238,125-fm (229-m) Contour - Coastwide,38,10.95,N,123,23.19,W,38.1825,-123.3865
+239,125-fm (229-m) Contour - Coastwide,38,5.52,N,123,22.9,W,38.092,-123.3817
+240,125-fm (229-m) Contour - Coastwide,38,8.46,N,123,26.23,W,38.141,-123.4372
+241,125-fm (229-m) Contour - Coastwide,38,6.95,N,123,28.03,W,38.1158,-123.4672
+242,125-fm (229-m) Contour - Coastwide,38,6.25,N,123,29.7,W,38.1042,-123.495
+243,125-fm (229-m) Contour - Coastwide,38,4.57,N,123,31.37,W,38.0762,-123.5228
+244,125-fm (229-m) Contour - Coastwide,38,2.32,N,123,31.09,W,38.0387,-123.5182
+245,125-fm (229-m) Contour - Coastwide,37,59.97,N,123,28.43,W,37.9995,-123.4738
+246,125-fm (229-m) Contour - Coastwide,37,58.1,N,123,26.69,W,37.9683,-123.4448
+247,125-fm (229-m) Contour - Coastwide,37,55.46,N,123,27.05,W,37.9243,-123.4508
+248,125-fm (229-m) Contour - Coastwide,37,51.51,N,123,24.86,W,37.8585,-123.4143
+249,125-fm (229-m) Contour - Coastwide,37,45.01,N,123,12.09,W,37.7502,-123.2015
+250,125-fm (229-m) Contour - Coastwide,37,35.67,N,123,1.56,W,37.5945,-123.026
+251,125-fm (229-m) Contour - Coastwide,37,26.62,N,122,56.21,W,37.4437,-122.9368
+252,125-fm (229-m) Contour - Coastwide,37,14.41,N,122,49.07,W,37.2402,-122.8178
+253,125-fm (229-m) Contour - Coastwide,37,11,N,122,45.87,W,37.1833,-122.7645
+254,125-fm (229-m) Contour - Coastwide,37,7,N,122,41.97,W,37.1167,-122.6995
+255,125-fm (229-m) Contour - Coastwide,37,3.19,N,122,38.31,W,37.0532,-122.6385
+256,125-fm (229-m) Contour - Coastwide,37,0.99,N,122,35.51,W,37.0165,-122.5918
+257,125-fm (229-m) Contour - Coastwide,36,58.31,N,122,27.56,W,36.9718,-122.4593
+258,125-fm (229-m) Contour - Coastwide,37,0.54,N,122,24.74,W,37.009,-122.4123
+259,125-fm (229-m) Contour - Coastwide,36,57.81,N,122,24.65,W,36.9635,-122.4108
+260,125-fm (229-m) Contour - Coastwide,36,58.54,N,122,21.67,W,36.9757,-122.3612
+261,125-fm (229-m) Contour - Coastwide,36,56.52,N,122,21.7,W,36.942,-122.3617
+262,125-fm (229-m) Contour - Coastwide,36,55.37,N,122,18.45,W,36.9228,-122.3075
+263,125-fm (229-m) Contour - Coastwide,36,52.16,N,122,12.17,W,36.8693,-122.2028
+264,125-fm (229-m) Contour - Coastwide,36,51.44,N,122,10.79,W,36.8573,-122.1798
+265,125-fm (229-m) Contour - Coastwide,36,48.05,N,122,7.59,W,36.8008,-122.1265
+266,125-fm (229-m) Contour - Coastwide,36,47.35,N,122,3.27,W,36.7892,-122.0545
+267,125-fm (229-m) Contour - Coastwide,36,50.71,N,121,58.17,W,36.8452,-121.9695
+268,125-fm (229-m) Contour - Coastwide,36,48.89,N,121,58.9,W,36.8148,-121.9817
+269,125-fm (229-m) Contour - Coastwide,36,47.7,N,121,58.76,W,36.795,-121.9793
+270,125-fm (229-m) Contour - Coastwide,36,48.37,N,121,51.15,W,36.8062,-121.8525
+271,125-fm (229-m) Contour - Coastwide,36,45.74,N,121,54.18,W,36.7623,-121.903
+272,125-fm (229-m) Contour - Coastwide,36,45.52,N,121,57.74,W,36.7587,-121.9623
+273,125-fm (229-m) Contour - Coastwide,36,44.02,N,121,58.55,W,36.7337,-121.9758
+274,125-fm (229-m) Contour - Coastwide,36,38.84,N,122,1.44,W,36.6473,-122.024
+275,125-fm (229-m) Contour - Coastwide,36,35.62,N,122,1.06,W,36.5937,-122.0177
+276,125-fm (229-m) Contour - Coastwide,36,32.41,N,121,59.18,W,36.5402,-121.9863
+277,125-fm (229-m) Contour - Coastwide,36,32.52,N,121,57.62,W,36.542,-121.9603
+278,125-fm (229-m) Contour - Coastwide,36,30.16,N,122,0.55,W,36.5027,-122.0092
+279,125-fm (229-m) Contour - Coastwide,36,24.56,N,121,59.19,W,36.4093,-121.9865
+280,125-fm (229-m) Contour - Coastwide,36,22.19,N,122,0.3,W,36.3698,-122.005
+281,125-fm (229-m) Contour - Coastwide,36,20.62,N,122,2.93,W,36.3437,-122.0488
+282,125-fm (229-m) Contour - Coastwide,36,18.89,N,122,5.18,W,36.3148,-122.0863
+283,125-fm (229-m) Contour - Coastwide,36,14.45,N,121,59.44,W,36.2408,-121.9907
+284,125-fm (229-m) Contour - Coastwide,36,13.66,N,121,57.17,W,36.2277,-121.9528
+285,125-fm (229-m) Contour - Coastwide,36,14.35,N,121,55.38,W,36.2392,-121.923
+286,125-fm (229-m) Contour - Coastwide,36,10.18,N,121,43.26,W,36.1697,-121.721
+287,125-fm (229-m) Contour - Coastwide,36,7.67,N,121,40.92,W,36.1278,-121.682
+288,125-fm (229-m) Contour - Coastwide,36,2.51,N,121,36.76,W,36.0418,-121.6127
+289,125-fm (229-m) Contour - Coastwide,36,1.04,N,121,36.68,W,36.0173,-121.6113
+290,125-fm (229-m) Contour - Coastwide,35,59.96,N,121,35.39,W,35.9993,-121.5898
+291,125-fm (229-m) Contour - Coastwide,35,57.84,N,121,33.1,W,35.964,-121.5517
+292,125-fm (229-m) Contour - Coastwide,35,45.57,N,121,27.26,W,35.7595,-121.4543
+293,125-fm (229-m) Contour - Coastwide,35,39.02,N,121,22.86,W,35.6503,-121.381
+294,125-fm (229-m) Contour - Coastwide,35,25.92,N,121,5.52,W,35.432,-121.092
+295,125-fm (229-m) Contour - Coastwide,35,16.26,N,121,1.5,W,35.271,-121.025
+296,125-fm (229-m) Contour - Coastwide,35,7.6,N,120,56.49,W,35.1267,-120.9415
+297,125-fm (229-m) Contour - Coastwide,34,57.77,N,120,53.87,W,34.9628,-120.8978
+298,125-fm (229-m) Contour - Coastwide,34,42.3,N,120,53.42,W,34.705,-120.8903
+299,125-fm (229-m) Contour - Coastwide,34,37.69,N,120,50.04,W,34.6282,-120.834
+300,125-fm (229-m) Contour - Coastwide,34,30.13,N,120,44.45,W,34.5022,-120.7408
+301,125-fm (229-m) Contour - Coastwide,34,27,N,120,39.24,W,34.45,-120.654
+302,125-fm (229-m) Contour - Coastwide,34,24.71,N,120,35.37,W,34.4118,-120.5895
+303,125-fm (229-m) Contour - Coastwide,34,21.63,N,120,24.86,W,34.3605,-120.4143
+304,125-fm (229-m) Contour - Coastwide,34,24.39,N,120,16.65,W,34.4065,-120.2775
+305,125-fm (229-m) Contour - Coastwide,34,22.48,N,119,56.42,W,34.3747,-119.9403
+306,125-fm (229-m) Contour - Coastwide,34,18.54,N,119,46.26,W,34.309,-119.771
+307,125-fm (229-m) Contour - Coastwide,34,16.37,N,119,45.12,W,34.2728,-119.752
+308,125-fm (229-m) Contour - Coastwide,34,15.91,N,119,47.29,W,34.2652,-119.7882
+309,125-fm (229-m) Contour - Coastwide,34,13.8,N,119,45.4,W,34.23,-119.7567
+310,125-fm (229-m) Contour - Coastwide,34,11.69,N,119,41.8,W,34.1948,-119.6967
+311,125-fm (229-m) Contour - Coastwide,34,9.98,N,119,31.87,W,34.1663,-119.5312
+312,125-fm (229-m) Contour - Coastwide,34,8.12,N,119,27.71,W,34.1353,-119.4618
+313,125-fm (229-m) Contour - Coastwide,34,6.35,N,119,32.65,W,34.1058,-119.5442
+314,125-fm (229-m) Contour - Coastwide,34,6.8,N,119,40.08,W,34.1133,-119.668
+315,125-fm (229-m) Contour - Coastwide,34,7.48,N,119,47.54,W,34.1247,-119.7923
+316,125-fm (229-m) Contour - Coastwide,34,8.21,N,119,54.9,W,34.1368,-119.915
+317,125-fm (229-m) Contour - Coastwide,34,6.85,N,120,5.6,W,34.1142,-120.0933
+318,125-fm (229-m) Contour - Coastwide,34,7.06,N,120,10.42,W,34.1177,-120.1737
+319,125-fm (229-m) Contour - Coastwide,34,8.93,N,120,18.34,W,34.1488,-120.3057
+320,125-fm (229-m) Contour - Coastwide,34,11.04,N,120,25.2,W,34.184,-120.42
+321,125-fm (229-m) Contour - Coastwide,34,13.01,N,120,29.29,W,34.2168,-120.4882
+322,125-fm (229-m) Contour - Coastwide,34,9.41,N,120,37.69,W,34.1568,-120.6282
+323,125-fm (229-m) Contour - Coastwide,34,3.2,N,120,34.52,W,34.0533,-120.5753
+324,125-fm (229-m) Contour - Coastwide,33,58.07,N,120,28.33,W,33.9678,-120.4722
+325,125-fm (229-m) Contour - Coastwide,33,53.37,N,120,14.43,W,33.8895,-120.2405
+326,125-fm (229-m) Contour - Coastwide,33,50.53,N,120,7.2,W,33.8422,-120.12
+327,125-fm (229-m) Contour - Coastwide,33,45.88,N,120,4.26,W,33.7647,-120.071
+328,125-fm (229-m) Contour - Coastwide,33,38.19,N,119,57.85,W,33.6365,-119.9642
+329,125-fm (229-m) Contour - Coastwide,33,38.19,N,119,50.42,W,33.6365,-119.8403
+330,125-fm (229-m) Contour - Coastwide,33,42.36,N,119,49.6,W,33.706,-119.8267
+331,125-fm (229-m) Contour - Coastwide,33,53.95,N,119,53.81,W,33.8992,-119.8968
+332,125-fm (229-m) Contour - Coastwide,33,55.99,N,119,41.4,W,33.9332,-119.69
+333,125-fm (229-m) Contour - Coastwide,33,58.48,N,119,27.9,W,33.9747,-119.465
+334,125-fm (229-m) Contour - Coastwide,33,59.24,N,119,23.61,W,33.9873,-119.3935
+335,125-fm (229-m) Contour - Coastwide,33,59.35,N,119,21.71,W,33.9892,-119.3618
+336,125-fm (229-m) Contour - Coastwide,33,59.94,N,119,19.57,W,33.999,-119.3262
+337,125-fm (229-m) Contour - Coastwide,34,4.48,N,119,15.32,W,34.0747,-119.2553
+338,125-fm (229-m) Contour - Coastwide,34,2.8,N,119,12.95,W,34.0467,-119.2158
+339,125-fm (229-m) Contour - Coastwide,34,2.39,N,119,7.17,W,34.0398,-119.1195
+340,125-fm (229-m) Contour - Coastwide,34,3.75,N,119,4.72,W,34.0625,-119.0787
+341,125-fm (229-m) Contour - Coastwide,34,1.82,N,119,3.24,W,34.0303,-119.054
+342,125-fm (229-m) Contour - Coastwide,33,59.33,N,119,3.49,W,33.9888,-119.0582
+343,125-fm (229-m) Contour - Coastwide,33,59.01,N,118,59.56,W,33.9835,-118.9927
+344,125-fm (229-m) Contour - Coastwide,33,59.51,N,118,57.25,W,33.9918,-118.9542
+345,125-fm (229-m) Contour - Coastwide,33,58.83,N,118,52.5,W,33.9805,-118.875
+346,125-fm (229-m) Contour - Coastwide,33,58.55,N,118,41.86,W,33.9758,-118.6977
+347,125-fm (229-m) Contour - Coastwide,33,55.1,N,118,34.25,W,33.9183,-118.5708
+348,125-fm (229-m) Contour - Coastwide,33,54.3,N,118,38.71,W,33.905,-118.6452
+349,125-fm (229-m) Contour - Coastwide,33,50.88,N,118,37.02,W,33.848,-118.617
+350,125-fm (229-m) Contour - Coastwide,33,48.7,N,118,31.99,W,33.8117,-118.5332
+351,125-fm (229-m) Contour - Coastwide,33,48.87,N,118,29.47,W,33.8145,-118.4912
+352,125-fm (229-m) Contour - Coastwide,33,48.37,N,118,29.4,W,33.8062,-118.49
+353,125-fm (229-m) Contour - Coastwide,33,47.63,N,118,31.57,W,33.7938,-118.5262
+354,125-fm (229-m) Contour - Coastwide,33,39.78,N,118,18.4,W,33.663,-118.3067
+355,125-fm (229-m) Contour - Coastwide,33,35.5,N,118,16.85,W,33.5917,-118.2808
+356,125-fm (229-m) Contour - Coastwide,33,32.46,N,118,10.9,W,33.541,-118.1817
+357,125-fm (229-m) Contour - Coastwide,33,32.81,N,118,7.3,W,33.5468,-118.1217
+358,125-fm (229-m) Contour - Coastwide,33,34.38,N,118,5.94,W,33.573,-118.099
+359,125-fm (229-m) Contour - Coastwide,33,34.42,N,118,3.95,W,33.5737,-118.0658
+360,125-fm (229-m) Contour - Coastwide,33,33.4,N,118,1.26,W,33.5567,-118.021
+361,125-fm (229-m) Contour - Coastwide,33,34.11,N,117,54.07,W,33.5685,-117.9012
+362,125-fm (229-m) Contour - Coastwide,33,31.61,N,117,49.3,W,33.5268,-117.8217
+363,125-fm (229-m) Contour - Coastwide,33,16.36,N,117,35.48,W,33.2727,-117.5913
+364,125-fm (229-m) Contour - Coastwide,33,6.81,N,117,22.93,W,33.1135,-117.3822
+365,125-fm (229-m) Contour - Coastwide,32,59.28,N,117,19.69,W,32.988,-117.3282
+366,125-fm (229-m) Contour - Coastwide,32,55.37,N,117,19.55,W,32.9228,-117.3258
+367,125-fm (229-m) Contour - Coastwide,32,53.12,N,117,17.49,W,32.8853,-117.2915
+368,125-fm (229-m) Contour - Coastwide,32,52.56,N,117,20.75,W,32.876,-117.3458
+369,125-fm (229-m) Contour - Coastwide,32,46.42,N,117,23.45,W,32.7737,-117.3908
+370,125-fm (229-m) Contour - Coastwide,32,42.71,N,117,21.45,W,32.7118,-117.3575
+371,125-fm (229-m) Contour - Coastwide,32,34.54,N,117,23.04,W,32.5757,-117.384
+1,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,28.42,N,118,39.85,W,33.4737,-118.6642
+2,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,29.99,N,118,36.14,W,33.4998,-118.6023
+3,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,29.47,N,118,33.66,W,33.4912,-118.561
+4,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,29.31,N,118,30.53,W,33.4885,-118.5088
+5,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,27.24,N,118,27.71,W,33.454,-118.4618
+6,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,25.77,N,118,22.57,W,33.4295,-118.3762
+7,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,23.76,N,118,19.27,W,33.396,-118.3212
+8,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,17.61,N,118,13.61,W,33.2935,-118.2268
+9,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,16.16,N,118,13.98,W,33.2693,-118.233
+10,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,15.86,N,118,15.27,W,33.2643,-118.2545
+11,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,18.11,N,118,27.96,W,33.3018,-118.466
+12,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,19.85,N,118,32.25,W,33.3308,-118.5375
+13,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,20.82,N,118,32.98,W,33.347,-118.5497
+14,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,21.99,N,118,32.04,W,33.3665,-118.534
+15,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,23.09,N,118,30.37,W,33.3848,-118.5062
+16,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,24.78,N,118,32.46,W,33.413,-118.541
+17,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,25.43,N,118,34.93,W,33.4238,-118.5822
+18,125-fm (229-m) Contour - Channel Islands - Southern - Santa Catalina Island,33,28.42,N,118,39.85,W,33.4737,-118.6642
+1,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,33,4.86,N,118,37.89,W,33.081,-118.6315
+2,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,33,2.67,N,118,34.07,W,33.0445,-118.5678
+3,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,55.97,N,118,28.95,W,32.9328,-118.4825
+4,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,55.06,N,118,27.66,W,32.9177,-118.461
+5,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,49.79,N,118,20.84,W,32.8298,-118.3473
+6,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,48.02,N,118,19.49,W,32.8003,-118.3248
+7,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,47.37,N,118,21.72,W,32.7895,-118.362
+8,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,43.58,N,118,24.54,W,32.7263,-118.409
+9,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,47.74,N,118,30.39,W,32.7957,-118.5065
+10,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,49.74,N,118,32.11,W,32.829,-118.5352
+11,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,53.36,N,118,33.44,W,32.8893,-118.5573
+12,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,32,54.89,N,118,35.37,W,32.9148,-118.5895
+13,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,33,0.2,N,118,38.72,W,33.0033,-118.6453
+14,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,33,3.15,N,118,39.8,W,33.0525,-118.6633
+15,125-fm (229-m) Contour - Channel Islands - Southern - San Clemente Island,33,4.86,N,118,37.89,W,33.081,-118.6315
+1,125-fm (229-m) Contour - Channel Islands - Southern - Lasuen Knoll,33,24.5,N,118,1.08,W,33.4083,-118.018
+2,125-fm (229-m) Contour - Channel Islands - Southern - Lasuen Knoll,33,23.35,N,117,59.83,W,33.3892,-117.9972
+3,125-fm (229-m) Contour - Channel Islands - Southern - Lasuen Knoll,33,23.69,N,117,58.47,W,33.3948,-117.9745
+4,125-fm (229-m) Contour - Channel Islands - Southern - Lasuen Knoll,33,24.76,N,117,59.33,W,33.4127,-117.9888
+5,125-fm (229-m) Contour - Channel Islands - Southern - Lasuen Knoll,33,24.5,N,118,1.08,W,33.4083,-118.018
+1,125-fm (229-m) Contour - Cortes and Tanner Banks,32,46.01,N,119,14.63,W,32.76683,-119.244
+2,125-fm (229-m) Contour - Cortes and Tanner Banks,32,44.35,N,119,16.58,W,32.73917,-119.276
+3,125-fm (229-m) Contour - Cortes and Tanner Banks,32,40.85,N,119,11.61,W,32.68083,-119.194
+4,125-fm (229-m) Contour - Cortes and Tanner Banks,32,38.93,N,119,11.9,W,32.64883,-119.198
+5,125-fm (229-m) Contour - Cortes and Tanner Banks,32,41.32,N,119,18.11,W,32.68867,-119.302
+6,125-fm (229-m) Contour - Cortes and Tanner Banks,32,36.16,N,119,22.16,W,32.60267,-119.369
+7,125-fm (229-m) Contour - Cortes and Tanner Banks,32,33.09,N,119,21.89,W,32.5515,-119.365
+8,125-fm (229-m) Contour - Cortes and Tanner Banks,32,30.73,N,119,20.43,W,32.51217,-119.341
+9,125-fm (229-m) Contour - Cortes and Tanner Banks,32,28.94,N,119,15.4,W,32.48233,-119.257
+10,125-fm (229-m) Contour - Cortes and Tanner Banks,32,27.46,N,119,15.62,W,32.45767,-119.26
+11,125-fm (229-m) Contour - Cortes and Tanner Banks,32,24.58,N,119,9.83,W,32.40967,-119.164
+12,125-fm (229-m) Contour - Cortes and Tanner Banks,32,22.97,N,119,3,W,32.38283,-119.05
+13,125-fm (229-m) Contour - Cortes and Tanner Banks,32,22.03,N,118,56.26,W,32.36717,-118.938
+14,125-fm (229-m) Contour - Cortes and Tanner Banks,32,24.63,N,118,57.54,W,32.4105,-118.959
+15,125-fm (229-m) Contour - Cortes and Tanner Banks,32,34.72,N,119,10.24,W,32.57867,-119.171
+16,125-fm (229-m) Contour - Cortes and Tanner Banks,32,37.93,N,119,7.88,W,32.63217,-119.131
+17,125-fm (229-m) Contour - Cortes and Tanner Banks,32,36.55,N,119,4.42,W,32.60917,-119.074
+18,125-fm (229-m) Contour - Cortes and Tanner Banks,32,41.5,N,119,2.65,W,32.69167,-119.044
+19,125-fm (229-m) Contour - Cortes and Tanner Banks,32,45.98,N,119,10.71,W,32.76633,-119.179
+20,125-fm (229-m) Contour - Cortes and Tanner Banks,32,46.01,N,119,14.63,W,32.76683,-119.244
+1,125-fm (229-m) Contour - San Nicolas Island,33,31.65,N,119,44.84,W,33.5275,-119.747
+2,125-fm (229-m) Contour - San Nicolas Island,33,28.91,N,119,52.35,W,33.48183,-119.873
+3,125-fm (229-m) Contour - San Nicolas Island,33,25.39,N,119,51.44,W,33.42317,-119.857
+4,125-fm (229-m) Contour - San Nicolas Island,33,17.94,N,119,47.31,W,33.299,-119.788
+5,125-fm (229-m) Contour - San Nicolas Island,33,15.33,N,119,43.4,W,33.2555,-119.723
+6,125-fm (229-m) Contour - San Nicolas Island,33,14.03,N,119,37.02,W,33.23383,-119.617
+7,125-fm (229-m) Contour - San Nicolas Island,33,11.49,N,119,29.58,W,33.1915,-119.493
+8,125-fm (229-m) Contour - San Nicolas Island,33,11.21,N,119,26.46,W,33.18683,-119.441
+9,125-fm (229-m) Contour - San Nicolas Island,33,12.9,N,119,15.74,W,33.215,-119.262
+10,125-fm (229-m) Contour - San Nicolas Island,33,14.51,N,119,14.92,W,33.24183,-119.249
+11,125-fm (229-m) Contour - San Nicolas Island,33,14.76,N,119,17.07,W,33.246,-119.284
+12,125-fm (229-m) Contour - San Nicolas Island,33,17.44,N,119,22.82,W,33.29067,-119.38
+13,125-fm (229-m) Contour - San Nicolas Island,33,21.37,N,119,27.53,W,33.35617,-119.459
+14,125-fm (229-m) Contour - San Nicolas Island,33,23.44,N,119,33.11,W,33.39067,-119.552
+15,125-fm (229-m) Contour - San Nicolas Island,33,31.65,N,119,44.84,W,33.5275,-119.747
+1,125-fm (229-m) Contour - Santa Barbara Island,33,33.96,N,119,4.88,W,33.56417,-119.081
+2,125-fm (229-m) Contour - Santa Barbara Island,33,33.28,N,119,5.88,W,33.5545,-119.094
+3,125-fm (229-m) Contour - Santa Barbara Island,33,30.98,N,119,6.32,W,33.53167,-119.085
+4,125-fm (229-m) Contour - Santa Barbara Island,33,28.52,N,119,7.7,W,33.477,-119.121
+5,125-fm (229-m) Contour - Santa Barbara Island,33,26.93,N,119,5.94,W,33.45067,-119.097
+6,125-fm (229-m) Contour - Santa Barbara Island,33,25.96,N,119,3.34,W,33.43667,-119.054
+7,125-fm (229-m) Contour - Santa Barbara Island,33,27.01,N,118,59.73,W,33.45117,-118.999
+8,125-fm (229-m) Contour - Santa Barbara Island,33,28.68,N,118,58.43,W,33.47833,-118.979
+9,125-fm (229-m) Contour - Santa Barbara Island,33,31.2,N,119,1.09,W,33.51667,-119.017
+10,125-fm (229-m) Contour - Santa Barbara Island,33,32.04,N,119,2.77,W,33.53317,-119.048
+11,125-fm (229-m) Contour - Santa Barbara Island,33,33.96,N,119,4.88,W,33.56417,-119.081
