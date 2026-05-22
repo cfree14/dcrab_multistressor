@@ -1,3 +1,5 @@
+
+
 # Clear workspace
 rm(list = ls())
 
@@ -22,14 +24,7 @@ usa_utm <- usa %>% sf::st_transform(crs=32610)
 foreign_utm <- foreign %>% sf::st_transform(crs=32610)
 
 # Read fishing grounds
-grounds_orig <- readRDS(file=file.path(outdir, "fishing_grounds.Rds"))
-
-grounds_new <- readRDS(file=file.path(outdir, "fishing_grounds_or_weighted.Rds")) %>% 
-  # filter(percentile=="95") %>% 
-  filter(level=="95%") %>% 
-  
-  # Transform
-  sf::st_transform(crs=32610) 
+grounds_orig <- readRDS(file=file.path(outdir, "fishing_grounds_or_weighted.Rds"))
 
 
 # Prep fishing grounds
@@ -37,12 +32,7 @@ grounds_new <- readRDS(file=file.path(outdir, "fishing_grounds_or_weighted.Rds")
 
 # Prep data
 grounds <- grounds_orig %>% 
-  # Filter
-  filter(percentile==95 & state=="Oregon") %>% 
-  # Dissolve
-  select(state, percentile, geometry) %>% 
   sf::st_make_valid() %>% 
-  summarise(geometry = sf::st_union(geometry)) %>% 
   # Transform
   sf::st_transform(crs=32610) 
 
@@ -80,17 +70,17 @@ my_theme <-  theme(axis.text=element_text(size=8),
 g <- ggplot(data=fits, aes(x= long_utm10m, y= lat_utm10m, fill=exp(est))) +
   # Facet
   facet_wrap(~year, ncol=10) +
-  # Plot land
-  geom_sf(data=foreign_utm, fill="grey90", color="white", lwd=0.2, inherit.aes = F) +
-  geom_sf(data=usa_utm, fill="grey90", color="white", lwd=0.2, inherit.aes = F) +
   # Data
   geom_tile() +
   # Plot fishing grounds
-  geom_sf(data=grounds, fill=NA, color="black", inherit.aes = F) +
-  geom_sf(data=grounds_new, fill=NA, color="red", inherit.aes = F) +
+  geom_sf(data=grounds, mapping=aes(linetype=as.character(percentile)), fill=NA, inherit.aes = F, color="black") +
+  # Plot land
+  geom_sf(data=foreign_utm, fill="grey90", color="white", lwd=0.2, inherit.aes = F) +
+  geom_sf(data=usa_utm, fill="grey90", color="white", lwd=0.2, inherit.aes = F) +
   # Labels
   labs(title="Fixed+random effects") +
   # Legend
+  scale_linetype_manual(name="Fishing ground\npercentile", values=c("solid", "dashed", "dotted")) +
   scale_fill_gradientn(name="Biomass density (kg/km2)", 
                        trans = "log10", 
                        colors=RColorBrewer::brewer.pal(9, "Spectral") %>% rev()) +
@@ -105,6 +95,8 @@ g <- ggplot(data=fits, aes(x= long_utm10m, y= lat_utm10m, fill=exp(est))) +
         axis.title=element_blank())
 g
 
+# Export
+
 
 # Summarize percent of crab outside fishing grous
 ################################################################################
@@ -116,23 +108,30 @@ ras <- freeR::df2brick(df, "long_utm10m", "lat_utm10m",  "biomass_mt", "year")
 raster::projection(ras) <- "+proj=utm +zone=10 +datum=WGS84 +units=m +no_defs"
 ras
 
-# Biomass in fishing grounds
-stats_fg <- raster::extract(x=ras, y=grounds, fun=sum, na.rm=T)
-
-# Overall biomass
 stats_all <- fits %>% 
   group_by(year) %>% 
   summarize(biomass_mt_tot=sum(biomass_mt, na.rm=T)) %>% 
-  ungroup() %>% 
-  mutate(biomass_mt_fg=as.numeric(stats_fg),
-         biomass_mt_outside=biomass_mt_tot-biomass_mt_fg,
+  ungroup() 
+
+# Biomass in fishing grounds
+stats_fg <- raster::extract(x=ras, y=grounds, fun=sum, na.rm=T) %>% 
+  as.data.frame() %>% 
+  mutate(percentile=c(50,95)) %>% 
+  select(percentile, everything()) %>% 
+  gather(key="year", value="biomass_mt_fg", 2:ncol(.)) %>% 
+  mutate(year=gsub("X", "", year) %>% as.numeric(.)) %>% 
+  left_join(stats_all) %>% 
+  mutate(biomass_mt_outside=biomass_mt_tot-biomass_mt_fg,
          perc_outside=biomass_mt_outside/biomass_mt_tot)
 
 
-ggplot(stats_all, aes(x=year, y=perc_outside)) +
+
+
+ggplot(stats_fg, aes(x=year, y=perc_outside, color=as.character(percentile))) +
   geom_line() +
   # Axes
-  labs(x="Year", y="Percent of biomass with fishing refugia") +
+  labs(x="Year", y="Percent of biomass\noutside fishing grounds") +
   scale_y_continuous(lim=c(0, NA), labels=scales::percent_format()) +
   # Theme
   theme_bw()
+

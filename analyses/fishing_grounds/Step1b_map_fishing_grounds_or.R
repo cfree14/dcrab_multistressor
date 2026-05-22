@@ -261,11 +261,100 @@ saveRDS(contours_all1, file=file.path(outdir, "fishing_grounds_or.Rds"))
 
 
 
+# Approach that groups all ports
+################################################################################
+
+
+stats <- data_orig %>% 
+  group_by(year, data_entry_protocol) %>% 
+  summarize(n=n()) %>% 
+  ungroup()
+
+ggplot(stats, aes(x=year, y=n, fill=data_entry_protocol)) +
+  geom_col() +
+  theme_bw()
+
+# Years of interest
+years_do <- 2007:2022
+
+# Calculate average landings
+stats_landings <- receipts_orig %>% 
+  # Period of interest
+  filter(year %in% years_do) %>%
+  # Group
+  group_by(port) %>% 
+  summarize(landings_lbs=sum(landings_lbs, na.rm=T)/length(years_do),
+            nvessels=n_distinct(vessel_id)) %>% 
+  ungroup() %>% 
+  # Add GPS coords
+  left_join(ports_orig)
+
+# Export
+saveRDS(stats_landings, file=file.path(outdir, "ports_or_use.Rds"))
 
 
 
+trips <- data_orig %>% 
+  # Years with full entry
+  filter(year %in% c(2007:2011, 2016, 2019:2022)) %>% 
+  # Only trips with GPS points
+  filter(!is.na(long_dd) & !is.na(lat_dd))
 
+# Convert to sf object
+trips_sf <- sf::st_as_sf(trips, coords = c("long_dd", "lat_dd"), crs = 4326)
 
+# Reproject to a suitable projected CRS for distance calculations (e.g., UTM)
+trips_sf <- sf::st_transform(trips_sf, 32610) # Example: UTM Zone 10N for U.S. West Coast
 
+# Convert to sp
+trips_sp <- as(trips_sf, "Spatial")
+
+# Estimate kernel utilization distribution
+kud <- adehabitatHR::kernelUD(trips_sp, h = "href", grid = 500)  # 'href' is the bandwidth rule of thumb
+
+# Extract the 95% contour polygon
+contour50 <- adehabitatHR::getverticeshr(kud, percent = 50)
+contour95 <- adehabitatHR::getverticeshr(kud, percent = 95)
+contour99 <- adehabitatHR::getverticeshr(kud, percent = 99)
+
+# Convert back to sf for plotting
+contour50_sf <- sf::st_as_sf(contour50) %>% mutate(percentile=50)
+contour95_sf <- sf::st_as_sf(contour95) %>% mutate(percentile=95)
+contour99_sf <- sf::st_as_sf(contour99) %>% mutate(percentile=99)
+contours <- bind_rows(contour50_sf, contour95_sf, contour99_sf) %>% 
+  mutate(port=port_do) %>% 
+  arrange(port, percentile) %>% 
+  sf::st_transform(sf::st_crs(usa))
+
+# Export
+saveRDS(contours, file=file.path(outdir, "fishing_grounds_or_full_entry.Rds"))
+
+# Plot data
+ggplot() +  
+  # Plot land
+  geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
+  geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
+  # Countours
+  geom_sf(data = contours, mapping=aes(fill = percentile), alpha = 0.3) +
+  # Trips
+  geom_sf(data = trips_sf, color = "black", size = 0.5, alpha = 0.5, pch="x") +
+  # Crop
+  coord_sf(xlim = c(-125, -123.5), ylim = c(42, 48)) +
+  # Theme
+  theme_bw()
+
+# Plot data
+ggplot() +  
+  # Contours
+  geom_sf(data = contours, mapping=aes(fill = as.character(percentile)), alpha = 0.3) +
+  # Plot land
+  geom_sf(data=foreign, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
+  geom_sf(data=usa, fill="grey90", color="white", lwd=0.3, inherit.aes = F) +
+  # Crop
+  coord_sf(xlim = c(-127, -123), ylim = c(41.5, 47)) +
+  # Legend
+  scale_fill_ordinal(name="Fishing grounds") +
+  # Theme
+  theme_bw()
 
 
