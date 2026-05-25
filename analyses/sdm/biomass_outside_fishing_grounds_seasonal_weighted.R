@@ -174,7 +174,7 @@ g <- ggplot(stats %>%   filter(percentile %in% c(25,50, 95)),
 g
 
 ggsave(g, filename=file.path(plotdir, "FigX_biomass_outside_fishing_grounds.png"), 
-       width=5.5, height=3.5, units="in", dpi=600, bg="white")
+       width=5.5, height=4.5, units="in", dpi=600, bg="white")
 
 
 # Frontier figure
@@ -185,20 +185,20 @@ stats_avg_perc <- stats %>%
   summarize(perc_outside=mean(perc_outside)) %>% 
   ungroup()
 
-g <- ggplot(stats, aes(x=percentile/100, y=1-perc_outside, fill=percentile)) +
+g <- ggplot(stats, aes(x=percentile/100, y=perc_outside, fill=percentile)) +
   # Ref lines
-  geom_abline(slope=1) +
+  geom_abline(slope=-1, intercept=1) +
   geom_vline(xintercept = c(0.25, 0.5, 0.95), color="grey70", linetype="dotted") +
   # Data
   geom_point(pch=21, stroke=0.2, size=2) +
   geom_point(data=stats_avg_perc, pch=21, stroke=0.4, size=4) +
   # Label zones
-  annotate(geom="text", x=0.75, y=0.25, label="Refugia") +
-  annotate(geom="text", x=0.25, y=0.75, label="Hyper-targeting") +
-  annotate(geom="text", x=0.15, y=0.18, angle=42, label="Ideal free distribution") +
+  annotate(geom="text", x=0.75, y=0.75, label="Refugia") +
+  annotate(geom="text", x=0.25, y=0.25, label="Hyper-targeting") +
+  # annotate(geom="text", x=0.15, y=0.19, angle=42, label="Ideal free distribution") +
   # Labels
   labs(x="Fishing grounds\n(percent utilization area)", 
-       y='Percent of biomass\nwithin fishing grounds') +
+       y='Percent of biomass\noutside of fishing grounds') +
   # Axes
   scale_x_continuous(labels=scales::percent_format()) +
   scale_y_continuous(labels=scales::percent_format()) +

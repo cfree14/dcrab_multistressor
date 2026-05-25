@@ -11,8 +11,7 @@ library(tidyverse)
 
 # Directories
 datadir <- "data/confidential/oregon/processed/"
-plotdir <- "analyses/fishing_grounds/figures"
-outdir <- "analyses/fishing_grounds/output"
+plotdir <- "analyses/sdm/figures"
 
 # Read data
 receipts_orig <-  readRDS(file=file.path(datadir, "ODFW_1980_2023_dcrab_fish_tickets.Rds"))
@@ -49,8 +48,30 @@ landings <- receipts_orig %>%
   mutate(season_short=substr(season_long, 1, 4) %>% as.numeric(.)) %>% 
   select(season_long, season_short, landings_lbs, everything(.))
 
+
+# Plot landings vs. index
+################################################################################
+
+# Theme
+base_theme <- theme(axis.text=element_text(size=7),
+                    axis.title=element_text(size=8),
+                    legend.text=element_text(size=7),
+                    legend.title=element_text(size=8),
+                    plot.tag = element_text(size=8),
+                    plot.title=element_blank(),
+                    # Gridlines
+                    panel.grid.major = element_blank(),
+                    panel.grid.minor = element_blank(),
+                    panel.background = element_blank(),
+                    axis.line = element_line(colour = "black"),
+                    # Legend
+                    legend.key.size=unit(0.3, "cm"),
+                    legend.key=element_blank(),
+                    legend.background = element_rect(fill=alpha('blue', 0)))
+
+
 # Plot landings
-ggplot(landings, aes(x=season_short, y=landings_lbs/1e6)) +
+g <- ggplot(landings, aes(x=season_short, y=landings_lbs/1e6)) +
   geom_bar(stat="identity", fill="grey70") +
   geom_line(data=index_df, mapping=aes(x=year, y=index_mt/1e3/2)) +
   geom_point(data=index_df, mapping=aes(x=year, y=index_mt/1e3/2)) +
@@ -58,8 +79,15 @@ ggplot(landings, aes(x=season_short, y=landings_lbs/1e6)) +
   labs(x="Year", y="Landings (millions lbs)") +
   scale_x_continuous(breaks=seq(1980,2025,5)) +
   # Theme
-  theme_bw()
+  theme_bw() + base_theme
+g
 
+#
+ggsave(g, filename=file.path(plotdir, "FigX_landings_vs_index.png"), 
+       width=6.5, height=3.5, units="in", dpi=600, bg="white")
+
+# Analysis
+################################################################################
 
 # Build data
 data <- landings %>% 
@@ -79,6 +107,28 @@ data <- landings %>%
   left_join(index_df %>% select(year_lag4, index_mt), by=c("season_short"="year_lag4")) %>%
   rename(index_lag4=index_mt)
 
+# Gather
+data_long <- data %>% 
+  gather(key="lag", value="index", 4:ncol(.)) %>% 
+  filter(!is.na(index)) %>% 
+  mutate(lag=gsub("index_lag", "Lag ", lag)) 
+
+g <- ggplot(data_long, aes(x=index/1e3, y=landings_lbs/1e6)) +
+  facet_wrap(~lag) +
+  geom_smooth(method="lm", fill = "grey80", color="black") +
+  # geom_point(color="grey40") +
+  geom_text(mapping=aes(label=season_short), size=2) +
+  # Labels
+  labs(y="Landings (millions of lbs)", x="Index of relative abundance (1000s of mt)") +
+  # Theme
+  theme_bw() + base_theme
+g
+
+ggsave(g, filename=file.path(plotdir, "FigX_landings_vs_index_with_lags_regressions.png"), 
+       width=6.5, height=4.5, units="in", dpi=600, bg="white")
+
+# Regressions
+################################################################################
 
 # Lag 1 complete
 data_lag1 <- data %>% 
@@ -113,12 +163,72 @@ summary(lmfit4)
 
 
 
-# Merge
-data <- landings %>% 
-  left_join(index_df) %>% 
-  mutate(type=ifelse(year %in% c(2015, 2016, 2018, 2019, 2023, 2024), "EL Nino", "Not El Nino"))
+# Reverse: landings impact on future abundance
+################################################################################
 
-ggplot(data, aes(x=index_mt, y=landings_lbs, color=type)) +
-  geom_point() +
-  geom_text(mapping=aes(label=year))
+# Build data
+data1 <- index_df %>% 
+  mutate(year_lag1=year-1,
+         year_lag2=year-2,
+         year_lag3=year-3,
+         year_lag4=year-4,
+         year_lag5=year-5,
+         year_lag6=year-6) %>% 
+  # Add index lag 1
+  left_join(landings %>% select(season_short, landings_lbs), by=c("year_lag1"="season_short")) %>%
+  rename(landings_lbs1=landings_lbs) %>% 
+  # Add index lag 2
+  left_join(landings %>% select(season_short, landings_lbs), by=c("year_lag2"="season_short")) %>%
+  rename(landings_lbs2=landings_lbs) %>% 
+  # Add index lag 3
+  left_join(landings %>% select(season_short, landings_lbs), by=c("year_lag3"="season_short")) %>%
+  rename(landings_lbs3=landings_lbs) %>% 
+  # Add index lag 4
+  left_join(landings %>% select(season_short, landings_lbs), by=c("year_lag4"="season_short")) %>%
+  rename(landings_lbs4=landings_lbs) %>% 
+  # Add index lag 5
+  left_join(landings %>% select(season_short, landings_lbs), by=c("year_lag5"="season_short")) %>%
+  rename(landings_lbs5=landings_lbs) %>% 
+  # Add index lag 6
+  left_join(landings %>% select(season_short, landings_lbs), by=c("year_lag6"="season_short")) %>%
+  rename(landings_lbs6=landings_lbs) 
+  
+# Gather
+data1_long <- data1 %>% 
+  select(-c(year_lag1:year_lag6)) %>% 
+  gather(key="lag", value="landings_lbs", 3:ncol(.)) %>% 
+  filter(!is.na(landings_lbs)) %>% 
+  mutate(lag=gsub("landings_lbs", "Lag ", lag)) 
 
+# Get regression stats
+x <- 1
+stats <- purrr::map_df(1:6, function(x){
+  
+  
+  lmfit <- lm(data1$index_mt ~ data1[,paste0("landings_lbs", x)])
+  summary(lmfit)
+  
+  df <- tibble(lag=paste("Lag", x),
+               pvalue=freeR::pval(lmfit),
+               slope=freeR::slope(lmfit))
+  
+})
+
+
+# Plot
+g <- ggplot(data1_long, aes(x=landings_lbs/1e6, y= index_mt/1e3)) +
+  facet_wrap(~lag) +
+  geom_smooth(method="lm", fill = "grey80", color="black") +
+  geom_point(color="grey40") +
+  geom_text(data=stats, aes(x=max(data1_long$landings_lbs/1e6), 
+                            y=max(data1_long$index_mt/1e3), 
+                            label=paste0("p=", round(pvalue, 3))),
+            hjust=1, size=2.2) +
+  # Labels
+  labs(x="Landings (millions of lbs)", y="Index of relative abundance (1000s of mt)") +
+  # Theme
+  theme_bw() + base_theme
+g
+
+ggsave(g, filename=file.path(plotdir, "FigX_landings_vs_index_with_lags_regressions.png"), 
+       width=6.5, height=4.5, units="in", dpi=600, bg="white")
