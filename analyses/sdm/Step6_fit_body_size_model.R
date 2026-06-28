@@ -15,7 +15,7 @@ library(tidyverse)
 trawldir <- "data/trawl_survey/processed"
 oceandir <- "data/live_ocean/processed"
 outdir <- "analyses/sdm/output"
-plotdir <- "figures/sdm"
+plotdir <- "analyses/sdm/figures"
 
 # Read data
 data_orig <- readRDS(file=file.path(trawldir, "dcrab_trawl_survey_data_2023_12_09_cleaned.Rds"))
@@ -45,6 +45,9 @@ data <- data_orig %>%
   # Calculate body size
   mutate(crab_kg=total_kg/total_n) %>%
   filter(crab_kg>0 & is.finite(crab_kg))
+
+data_or <- data %>% 
+  filter(state=="Oregon")
 
 
 # # Build survey footprint
@@ -163,7 +166,10 @@ data <- data_orig %>%
 
 # Build mesh
 mesh <- make_mesh(data, c("long_utm10km", "lat_utm10km"), cutoff = 20) # 20 km quick, 10 km slow
+mesh_or <- make_mesh(data_or, c("long_utm10km", "lat_utm10km"), cutoff = 20) # 20 km quick, 10 km slow
+
 plot(mesh)
+plot(mesh_or)
 
 # Fit model
 m <- sdmTMB(
@@ -173,7 +179,15 @@ m <- sdmTMB(
   spatiotemporal = "off",
   family = gaussian())
 
+m_or <- sdmTMB(
+  data = data_or, 
+  formula = log(crab_kg) ~ s(depth_m),
+  mesh = mesh_or, 
+  spatiotemporal = "off",
+  family = gaussian())
+
 sanity(m)
+sanity(m_or)
 
 # Record and inspect residuals
 data$resids <- residuals(m)
@@ -186,6 +200,7 @@ abline(a = 0, b = 1)
 ################################################################################
 
 pred_depth <- data.frame(
+  state="Coastwide",
   depth_m = seq(min(data$depth_m), max(data$depth_m), length.out = 200),
   long_utm10km = mean(data$long_utm10km, na.rm = TRUE),
   lat_utm10km  = mean(data$lat_utm10km, na.rm = TRUE)
@@ -203,6 +218,31 @@ pred_depth$fit <- exp(pred$est)
 pred_depth$lwr <- exp(pred$est - 1.96 * pred$est_se)
 pred_depth$upr <- exp(pred$est + 1.96 * pred$est_se)
 
+
+# Oregon
+
+pred_depth_or <- data.frame(
+  state="Oregon",
+  depth_m = seq(min(data_or$depth_m), max(data_or$depth_m), length.out = 200),
+  long_utm10km = mean(data$long_utm10km, na.rm = TRUE),
+  lat_utm10km  = mean(data$lat_utm10km, na.rm = TRUE)
+)
+
+pred_or <- predict(
+  m_or,
+  newdata = pred_depth_or,
+  xy_cols = c("long_utm10km", "lat_utm10km"),
+  se_fit = TRUE,
+  re_form = NA
+)
+
+pred_depth_or$fit <- exp(pred_or$est)
+pred_depth_or$lwr <- exp(pred_or$est - 1.96 * pred_or$est_se)
+pred_depth_or$upr <- exp(pred_or$est + 1.96 * pred_or$est_se)
+
+
+# Merge
+pred_depth1 <- bind_rows(pred_depth, pred_depth_or)
 
 # Plot data
 ################################################################################
@@ -226,9 +266,9 @@ base_theme <- theme(axis.text=element_text(size=7),
                     legend.background = element_rect(fill=alpha('blue', 0)))
 
 # Plot data
-g <- ggplot(pred_depth, aes(x=measurements::conv_unit(depth_m, "m", "ft")/6, 
-                       y=fit)) +
-  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2) +
+g <- ggplot(pred_depth1, aes(x=measurements::conv_unit(depth_m, "m", "ft")/6, 
+                       y=fit, fill=state, color=state)) +
+  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2, color=NA) +
   geom_line() +
   # Ref line
   geom_vline(xintercept=100, linetype="dotted", color="grey30") +
@@ -237,7 +277,9 @@ g <- ggplot(pred_depth, aes(x=measurements::conv_unit(depth_m, "m", "ft")/6,
   # Limits
   lims(y=c(0,NA)) +
   # Theme
-  theme_bw() + base_theme
+  theme_bw() + base_theme +
+  theme(legend.position = c(0.8, 0.2),
+        legend.title = element_blank())
 g
 
 # Export

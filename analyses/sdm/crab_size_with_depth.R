@@ -28,7 +28,7 @@ data <- data_orig %>%
   mutate(crab_kg=total_kg/total_n) %>% 
   # Only with crab
   filter(crab_kg>0 & is.finite(crab_kg)) %>% 
-  # Convert depth to fathomgs
+  # Convert depth to fathoms
   mutate(depth_fa=measurements::conv_unit(depth_m, "m", "ft")/6)
 
 res <- 0.1
@@ -42,7 +42,12 @@ stats <- data %>%
   mutate(crab_kg_cap=pmin(crab_kg,1))
 
 
-
+data %>% 
+  filter(state=="Oregon") %>% 
+  mutate(depth_catg=ifelse(depth_fa<=100, "< 100", "> 100")) %>% 
+  group_by(depth_catg) %>% 
+  summarize(crab_kg=mean(crab_kg)) %>% 
+  ungroup()
 
 
 # Build data
@@ -54,7 +59,7 @@ base_theme <- theme(axis.text=element_text(size=7),
                     legend.text=element_text(size=7),
                     legend.title=element_text(size=8),
                     plot.tag = element_text(size=8),
-                    plot.title=element_blank(),
+                    plot.title=element_text(size=8),
                     axis.text.y = element_text(angle = 90, hjust = 0.5),
                     # Gridlines
                     panel.grid.major = element_blank(),
@@ -92,20 +97,36 @@ g1
 
 # Plot relative to depth
 g2 <- ggplot(data, aes(y=crab_kg, x=depth_fa)) +
-  geom_point() + 
-  geom_smooth() +
+  geom_point(color="grey80") + 
+  geom_smooth(fill="grey20", color="black") +
+  geom_vline(xintercept=100, linetype="dashed") +
   # Labels
-  labs(x="Depth (fathoms)", y="Average crab size (kg)", tag="B") +
+  labs(x="Depth (fathoms)", y="Average crab size (kg)", tag="B", title="Coastwide") +
   # Axes
   lims(y=c(0, 2)) +
+  scale_x_continuous(lim=c(0, max(data$depth_fa))) +
   # Theme
   theme_bw() + base_theme
+
+# Plot relative to depth
+g2a <- ggplot(data %>% filter(state=="Oregon"), aes(y=crab_kg, x=depth_fa)) +
+  geom_point(color="grey80") + 
+  geom_smooth(fill="grey20", color="black") +
+  geom_vline(xintercept=100, linetype="dashed") +
+  # Labels
+  labs(x="Depth (fathoms)", y="Average crab size (kg)", title="Oregon only", tag="C") +
+  # Axes
+  lims(y=c(0, 2)) +
+  scale_x_continuous(lim=c(0, max(data$depth_fa))) +
+  # Theme
+  theme_bw() + base_theme
+g2a
 
 # Crab body size distribution
 g3 <- ggplot(data, aes(x=crab_kg)) + 
   geom_density() +
   # Labels
-  labs(x="Average crab size (kg)", y="Frequency", tag="C") +
+  labs(x="Average crab size (kg)", y="Frequency", tag="D") +
   # Axes
   lims(x=c(0, 2)) +
   # Theme
@@ -114,8 +135,9 @@ g3
 
 # Matrix
 layout_matrix <- matrix(data=c(1,2,
-                               1,3), nrow=2, ncol=2, byrow=T)
-g <- gridExtra::grid.arrange(g1, g2, g3, layout_matrix=layout_matrix)
+                               1,3, 
+                               1,4), nrow=3, ncol=2, byrow=T)
+g <- gridExtra::grid.arrange(g1, g2, g2a, g3, layout_matrix=layout_matrix)
 
 # Export
 ggsave(g, filename=file.path(plotdir, "FigX_crab_size_with_depth.png"), 
