@@ -66,7 +66,7 @@ blocks <- blocks_orig |>
   # Mark real zone
   mutate(zone=cut(lat_dd, lat_breaks, labels=c(paste0("CA-", 6:1), 
                                                paste0("OR-50-", LETTERS[12:1]), 
-                                               c("WA-60A-2", "WA-60A-2", "WA-59A-2", "WA-59A-1")))) |> 
+                                               c("WA-60A-2", "WA-60A-1", "WA-59A-2", "WA-59A-1")))) |> 
   # Mark Jameal zone
   mutate(zone_jameal=cut(lat_dd, lat_breaks_jameal, labels=c("CA6", "CA5", "CA4", "CA3", "CA2", "CA1",
                                                              "OR1", "OR2", "OR3",
@@ -90,6 +90,11 @@ my_theme <-  theme(axis.text=element_text(size=8),
                    legend.key = element_rect(fill = NA, color=NA),
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
+set.seed(42)
+zones <- unique(blocks$zone_jameal)
+zone_colors <- scales::hue_pal()(length(zones))
+zone_colors <- setNames(sample(zone_colors), zones)
+
 # Plot blocks
 g1 <- ggplot() +
   # Plot blocks
@@ -104,11 +109,17 @@ g1 <- ggplot() +
   # Labels 
   labs(title="Jameal zones") +
   # Legend
-  scale_fill_discrete(name="Zone") +
+  # scale_fill_discrete(name="Zone") +
+  scale_fill_manual(name="Zone", values=zone_colors) +
   # Theme
   theme_bw() + my_theme + 
   theme(legend.position = c(0.8, 0.8))
 g1
+
+set.seed(42)
+zones <- unique(blocks$zone)
+zone_colors <- scales::hue_pal()(length(zones))
+zone_colors <- setNames(sample(zone_colors), zones)
 
 g2 <- ggplot() +
   # Plot blocks
@@ -123,7 +134,8 @@ g2 <- ggplot() +
   # Labels 
   labs(title="Chris zones") +
   # Legend
-  scale_fill_discrete(name="Zone") +
+  # scale_fill_discrete(name="Zone") +
+  scale_fill_manual(name="Zone", values=zone_colors) +
   # Theme
   theme_bw() + my_theme +
   theme(legend.position = c(0.8, 0.8))
@@ -137,4 +149,4 @@ blocks_out <- blocks |>
   sf::st_transform(crs=sf::st_crs(blocks_orig))
 
 # Export
-sf::st_write(blocks_out, dsn="analyses/trt_paper/output/ten_arcminute_grid_shore_lamb_with_zones.shp")
+sf::st_write(blocks_out, dsn="analyses/trt_paper/output/ten_arcminute_grid_shore_lamb_with_zones.shp", append=FALSE)

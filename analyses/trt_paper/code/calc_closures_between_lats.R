@@ -28,11 +28,11 @@ time_key <- time_key_orig %>%
   # Add row id
   mutate(row_id=1:n()) %>% 
   # Reduce
-  filter(min_date > "2015-12-13")
+  filter(min_date > "2015-01-01")
 
 # If Jameal version
-version <- "real"
-# version <- "jameal"
+# version <- "real"
+version <- "jameal"
 if(version=="jameal"){
 
   # Latitude breaks
@@ -76,7 +76,7 @@ if(version=="jameal"){
                   42) %>% sort() %>% unique() %>% na.omit()
   lat_zones <- c(paste0("CA-", 6:1), 
                  paste0("OR-50-", LETTERS[12:1]), 
-                 c("WA-60A-2", "WA-60A-2", "WA-59A-2", "WA-59A-1"))
+                 c("WA-60A-2", "WA-60A-1", "WA-59A-2", "WA-59A-1"))
   
   data <- data_orig  %>% 
     # Remove above max lat considered
